@@ -12,7 +12,7 @@ A lightweight UI component library for Vue.js based on Cloudflare dashboard
 npm install vue-cf-ui
 ```
 
-2. Import the components in your SCF.
+2. Import the components in your SFC.
 
 ```
 <script setup>
