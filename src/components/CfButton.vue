@@ -133,6 +133,7 @@ const rootClasses = computed(() => {
 
 .cf-button--tonal {
   --color: var(--cf-gray-1);
+  --border-color: transparent;
   --background-color: var(--cf-gray-8);
 
   &:hover:not(:active) {
