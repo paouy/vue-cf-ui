@@ -11,7 +11,6 @@
 
 <style lang="scss">
 .cf-app-bar {
-  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -37,6 +36,7 @@
 
 @media (min-width: 880px) {
   .cf-app-bar {
+    grid-column: span 2;
     padding-left: 1rem;
   }
 }

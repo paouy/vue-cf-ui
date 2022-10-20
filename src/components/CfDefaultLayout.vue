@@ -34,11 +34,10 @@ body[data-layout="default"] {
 
 @media (min-width: 880px) {
   body[data-layout="default"] {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: max-content 1fr;
 
     main {
-      flex-grow: 1;
       display: flex;
       padding: 2rem 0;
       min-height: calc(100vh - 3.875rem);
