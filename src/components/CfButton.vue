@@ -76,6 +76,7 @@ const rootClasses = computed(() => {
   background-color: var(--background-color);
   position: relative;
   width: fit-content;
+  min-width: fit-content;
   height: 2.05rem;
   transition-property: background-color, border-color, color;
   transition-duration: 200ms;
