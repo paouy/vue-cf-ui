@@ -34,6 +34,7 @@ const props = defineProps({
 .cf-select {
   display: grid;
   gap: 0.25rem;
+  width: 100%;
 
   &__label {
     order: 1;
