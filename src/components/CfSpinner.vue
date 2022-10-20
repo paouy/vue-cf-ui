@@ -9,17 +9,16 @@
 
 <style lang="scss">
 .cf-spinner {
-  width: 32px;
-  height: 32px;
+  width: 2rem;
+  height: 2rem;
 
   div {
     border: 3px solid;
     border-radius: 100%;
     border-color: #92979b transparent transparent transparent;
-    margin: 8px;
-    width: 32px;
-    height: 32px;
-    animation: spinner 2.5s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    width: 2rem;
+    height: 2rem;
+    animation: cf-spinner 2.5s cubic-bezier(0.5, 0, 0.5, 1) infinite;
     position: absolute;
 
     &:nth-child(1) {
@@ -35,7 +34,7 @@
     }
   }
 
-  @keyframes spinner {
+  @keyframes cf-spinner {
     0% {
     transform: rotate(0deg);
     }
