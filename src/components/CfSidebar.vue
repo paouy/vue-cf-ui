@@ -28,7 +28,6 @@ const rootClasses = computed(() => {
 .cf-sidebar {
   display: flex;
   flex-direction: column;
-  flex-shrink: 0;
   background: #fff;
   width: 0;
   height: calc(100vh - 3.875rem);
