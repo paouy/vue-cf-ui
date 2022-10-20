@@ -49,6 +49,7 @@ const props = defineProps({
     border: 1px solid var(--cf-gray-5);
     border-radius: 0.3125rem;
     background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" height="12" viewBox="0 0 16 16" fill="%23595959"><path d="M14.15 4.492H1.85l-.354.854 6.15 6.15h.707l6.15-6.15-.353-.854z"></path></svg>') calc(100% - 0.625rem) center no-repeat;
+    min-width: 0;
     transition: border-color 0.2s ease 0s;
     cursor: pointer;
 

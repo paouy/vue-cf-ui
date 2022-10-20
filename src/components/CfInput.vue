@@ -55,6 +55,7 @@ const props = defineProps({
     padding: 0.5rem;
     border: 1px solid var(--cf-gray-5);
     border-radius: 0.3125rem;
+    min-width: 0;
     transition: border-color 0.2s ease 0s;
 
     &:not(:disabled) {
