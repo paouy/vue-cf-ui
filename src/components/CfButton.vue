@@ -72,7 +72,7 @@ const rootClasses = computed(() => {
   line-height: 1.2;
   padding: 0 1rem;
   border-radius: 0.3125rem;
-  border: 0px solid var(--border-color);
+  border: 1px solid var(--border-color);
   background-color: var(--background-color);
   position: relative;
   width: fit-content;
@@ -133,6 +133,7 @@ const rootClasses = computed(() => {
 
 .cf-button--tonal {
   --color: var(--cf-gray-1);
+  --border-color: transparent;
   --background-color: var(--cf-gray-8);
 
   &:hover:not(:active) {
@@ -141,7 +142,6 @@ const rootClasses = computed(() => {
 }
 
 .cf-button--outlined {
-  border-width: 1px;
   --color: #000;
   --background-color: transparent;
 
@@ -150,7 +150,6 @@ const rootClasses = computed(() => {
   }
 
   &-red {
-    border-width: 1px;
     --color: var(--cf-red-3);
     --background-color: transparent;
 
@@ -166,7 +165,6 @@ const rootClasses = computed(() => {
   }
 
   &-blue {
-    border-width: 1px;
     --color: var(--cf-blue-3);
     --background-color: transparent;
 
@@ -187,6 +185,7 @@ const rootClasses = computed(() => {
   text-decoration: underline;
   text-underline-offset: 0.25rem;
   padding: 0;
+  border-width: 0;
   background: none;
   height: auto;
   --color: var(--cf-blue-4);
@@ -232,7 +231,6 @@ const rootClasses = computed(() => {
   
     &-red { 
       &:hover:not(:active) {
-        border-width: 1px;
         --color: var(--cf-red-3);
         --background-color: transparent;
       }
@@ -245,7 +243,6 @@ const rootClasses = computed(() => {
   
     &-blue {
       &:hover:not(:active) {
-        border-width: 1px;
         --color: var(--cf-blue-3);
         --background-color: transparent;
       }
