@@ -3,6 +3,7 @@ const emit = defineEmits(['update:modelValue'])
 
 const props = defineProps({
   modelValue: [Number, String],
+  value: [Number, String],
   label: String,
   placeholder: String,
   helper: String,
@@ -20,7 +21,7 @@ const props = defineProps({
   <div class="cf-input">
     <input
       class="cf-input__field"
-      :value="props.modelValue"
+      :value="props.modelValue || props.value"
       :type="props.type"
       :placeholder="props.placeholder"
       :required="props.required"
