@@ -1,12 +1,12 @@
-const path = require('path')
-const { defineConfig } = require('vite')
-const vue = require('@vitejs/plugin-vue')
+import { fileURLToPath, URL } from 'node:url'
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
   build: {
     lib: {
       name: 'vue-cf-ui',
-      entry: path.resolve(__dirname, 'src/components/index.js'),
+      entry: fileURLToPath(new URL('./src/components/index.js', import.meta.url)),
       fileName: (format) => `vue-cf-ui.${format}.js`
     },
     rollupOptions: {

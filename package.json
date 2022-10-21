@@ -10,6 +10,7 @@
   "main": "./dist/vue-cf-ui.umd.js",
   "module": "./dist/vue-cf-ui.es.js",
   "scripts": {
+    "dev": "vite --config vite.dev.config.js",
     "build": "vite build"
   },
   "peerDependencies": {
