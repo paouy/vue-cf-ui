@@ -4,6 +4,7 @@ import CfAppBody from './CfAppBody.vue'
 import CfButton from './CfButton.vue'
 import CfCheckbox from './CfCheckbox.vue'
 import CfDefaultLayout from './CfDefaultLayout.vue'
+import CfDialog from './CfDialog.vue'
 import CfDropdown from './CfDropdown.vue'
 import CfDropdownItem from './CfDropdownItem.vue'
 import CfDropZone from './CfDropZone.vue'
@@ -23,6 +24,7 @@ export {
   CfButton,
   CfCheckbox,
   CfDefaultLayout,
+  CfDialog,
   CfDropdown,
   CfDropdownItem,
   CfDropZone,
