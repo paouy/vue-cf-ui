@@ -1,6 +1,6 @@
 {
   "name": "vue-cf-ui",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "author": "Paolo Uy",
   "license": "ISC",
   "files": [
@@ -10,6 +10,7 @@
   "main": "./dist/vue-cf-ui.umd.js",
   "module": "./dist/vue-cf-ui.es.js",
   "scripts": {
+    "dev": "vite --config vite.dev.config.js",
     "build": "vite build"
   },
   "peerDependencies": {
