@@ -6,6 +6,7 @@ import CfCheckbox from './CfCheckbox.vue'
 import CfDefaultLayout from './CfDefaultLayout.vue'
 import CfDropdown from './CfDropdown.vue'
 import CfDropdownItem from './CfDropdownItem.vue'
+import CfDropZone from './CfDropZone.vue'
 import CfInput from './CfInput.vue'
 import CfNavItem from './CfNavItem.vue'
 import CfRadio from './CfRadio.vue'
@@ -24,6 +25,7 @@ export {
   CfDefaultLayout,
   CfDropdown,
   CfDropdownItem,
+  CfDropZone,
   CfInput,
   CfNavItem,
   CfRadio,
