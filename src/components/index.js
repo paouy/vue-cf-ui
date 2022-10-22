@@ -10,6 +10,7 @@ import CfDropdownItem from './CfDropdownItem.vue'
 import CfDropZone from './CfDropZone.vue'
 import CfInput from './CfInput.vue'
 import CfNavItem from './CfNavItem.vue'
+import CfProgress from './CfProgress.vue'
 import CfRadio from './CfRadio.vue'
 import CfSelect from './CfSelect.vue'
 import CfSelection from './CfSelection.vue'
@@ -30,6 +31,7 @@ export {
   CfDropZone,
   CfInput,
   CfNavItem,
+  CfProgress,
   CfRadio,
   CfSelect,
   CfSelection,

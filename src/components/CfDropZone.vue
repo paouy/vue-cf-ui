@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'cancel'])
 
 const props = defineProps({
   modelValue: File,
@@ -64,6 +64,11 @@ const emitFile = (file) => {
     emit('update:modelValue', file)
   }
 }
+
+const cancelSelection = () => {
+  emit('update:modelValue', null)
+  emit('cancel')
+}
 </script>
 
 <template>
@@ -89,7 +94,7 @@ const emitFile = (file) => {
       <div class="cf-drop-zone-list__item">
         <div>{{ props.modelValue.name }}</div>
         <div>{{ readableFileSize }}</div>
-        <button @click="emit('update:modelValue', null)">
+        <button @click="cancelSelection">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12">
             <path d="M14.34 13.605L8.696 8.023l5.582-5.645-.71-.703-5.583 5.644L2.34 1.737l-.703.711L7.282 8.03 1.7 13.675l.71.703 5.583-5.645 5.644 5.583.703-.711z"></path>
           </svg>
