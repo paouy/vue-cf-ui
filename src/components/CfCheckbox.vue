@@ -101,4 +101,10 @@ const id = Math.random()
     font-size: 0.875rem;
   }
 }
+
+[inert] .cf-checkbox,
+[disabled] .cf-checkbox {
+  opacity: 0.5;
+  cursor: default;
+}
 </style>
