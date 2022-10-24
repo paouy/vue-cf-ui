@@ -86,4 +86,10 @@ const props = defineProps({
     font-size: 0.75rem;
   }
 }
+
+[inert] .cf-input,
+[disabled] .cf-input {
+  opacity: 0.5;
+  cursor: default;
+}
 </style>

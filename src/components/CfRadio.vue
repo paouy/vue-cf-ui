@@ -106,4 +106,10 @@ const computedValue = computed({
     font-size: 0.75rem;
   }
 }
+
+[inert] .cf-radio,
+[disabled] .cf-radio {
+  opacity: 0.5;
+  cursor: default;
+}
 </style>

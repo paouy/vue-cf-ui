@@ -80,4 +80,10 @@ const props = defineProps({
     font-size: 0.75rem;
   }
 }
+
+[inert] .cf-select,
+[disabled] .cf-select {
+  opacity: 0.5;
+  cursor: default;
+}
 </style>

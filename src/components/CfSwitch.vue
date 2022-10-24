@@ -108,4 +108,10 @@ const computedValue = computed({
     }
   }
 }
+
+[inert] .cf-switch,
+[disabled] .cf-switch {
+  opacity: 0.5;
+  cursor: default;
+}
 </style>
