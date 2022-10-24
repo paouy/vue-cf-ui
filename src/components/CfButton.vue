@@ -10,10 +10,6 @@ const props = defineProps({
     type: String,
     default: 'button'
   },
-  variant: {
-    type: String,
-    default: null
-  },
   large: {
     type: Boolean,
     default: false
@@ -21,6 +17,14 @@ const props = defineProps({
   wide: {
     type: Boolean,
     default: false
+  },
+  outlined: {
+    type: Boolean,
+    default: false
+  },
+  color: {
+    type: String,
+    default: null
   },
   loading: {
     type: Boolean,
@@ -39,9 +43,10 @@ const props = defineProps({
 const rootClasses = computed(() => {
   return {
     'cf-button': true,
-    [`cf-button--${props.variant}`]: props.variant,
+    'cf-button--outlined': props.outlined,
     'cf-button--large': props.large,
     'cf-button--wide': props.wide,
+    [`cf-button--${props.color}`]: props.color,
     'cf-button--loading': props.loading,
     'cf-button--disabled': props.disabled
   }
@@ -72,23 +77,28 @@ const rootClasses = computed(() => {
   line-height: 1.2;
   padding: 0 1rem;
   border-radius: 0.3125rem;
-  border: 1px solid var(--border-color);
-  background-color: var(--background-color);
+  background-color: var(--background);
   position: relative;
   width: fit-content;
   min-width: fit-content;
+  white-space: nowrap;
   height: 2.05rem;
   transition-property: background-color, border-color, color;
   transition-duration: 200ms;
   transition-timing-function: ease;
   user-select: none;
   cursor: pointer;
-  --color: var(--cf-gray-9);
-  --border-color: currentColor;
-  --background-color: var(--cf-blue-4);
+  --color: var(--default-color);
+  --background: var(--default-background);
 
   &:hover:not(:active) {
-    --background-color: var(--cf-blue-2);
+    --color: var(--hover-color);
+    --background: var(--hover-background);
+  }
+
+  &:active {
+    --color: var(--default-color);
+    --background: var(--default-background);
   }
 
   &--wide {
@@ -100,11 +110,6 @@ const rootClasses = computed(() => {
     font-weight: 600;
     padding: 0 4rem;
     height: 2.8125rem;
-  }
-
-  &--disabled {
-    opacity: 0.5;
-    pointer-events: none;
   }
 
   &--loading {
@@ -131,127 +136,98 @@ const rootClasses = computed(() => {
   }
 }
 
-.cf-button--tonal {
-  --color: var(--cf-gray-1);
-  --border-color: transparent;
-  --background-color: var(--cf-gray-8);
-
-  &:hover:not(:active) {
-    --background-color: var(--cf-gray-7);
-  }
-}
-
-.cf-button--outlined {
-  --color: #000;
-  --background-color: transparent;
-
-  &:hover:not(:active) {
-    --background-color: var(--cf-gray-9);
-  }
-
-  &-red {
-    --color: var(--cf-red-3);
-    --background-color: transparent;
-
-    &:hover:not(:active) {
-      --color: #fff;
-      --background-color: var(--cf-red-3);
-    }
-
-    &:active {
-      --color: var(--cf-gray-9);
-      --background-color: var(--cf-red-4);
-    }
-  }
-
-  &-blue {
-    --color: var(--cf-blue-3);
-    --background-color: transparent;
-
-    &:hover:not(:active) {
-      --color: #fff;
-      --background-color: var(--cf-blue-2);
-    }
-
-    &:active {
-      --color: var(--cf-gray-9);
-      --background-color: var(--cf-blue-4);
-    }
-  }
-}
-
-.cf-button--text {
-  display: inline;
-  text-decoration: underline;
-  text-underline-offset: 0.25rem;
-  padding: 0;
-  border-width: 0;
-  background: none;
-  height: auto;
-  --color: var(--cf-blue-4);
-
-  &:hover:not(:active) {
-    --color: var(--cf-blue-2);
-  }
-
-  &:focus {
-    --color: var(--cf-blue-5);
-  }
+[inert] .cf-button:not(.cf-button--loading),
+[disabled] .cf-button:not(.cf-button--loading),
+.cf-button--disabled {
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 @media (hover: none) and (pointer: coarse) {
   .cf-button {
     &:hover:not(:active) {
-      --background-color: var(--cf-blue-4);
+      --color: var(--default-color);
+      --background: var(--default-background);
     }
 
     &:active {
-      --background-color: var(--cf-blue-2);
+      --color: var(--hover-color);
+      --background: var(--hover-background);
     }
   }
-  
-  .cf-button--tonal {
-    &:hover:not(:active) {
-      --background-color: var(--cf-gray-8);
-    }
+}
 
-    &:active {
-      --background-color: var(--cf-gray-7);
-    }
+.cf-button {
+  --default-color: var(--cf-gray-9);
+  --default-background: var(--cf-blue-4);
+  --hover-color: var(--cf-gray-9);
+  --hover-background: var(--cf-blue-2);
+
+  &.cf-button--red {
+    --default-color: var(--cf-gray-9);
+    --default-background: var(--cf-red-4);
+    --hover-color: var(--cf-gray-9);
+    --hover-background: var(--cf-red-2);
   }
-  
-  .cf-button--outlined {
+
+  &.cf-button--gray {
+    --default-color: var(--cf-gray-1);
+    --default-background: var(--cf-gray-8);
+    --hover-color: var(--cf-gray-1);
+    --hover-background: var(--cf-gray-7);
+  }
+}
+
+.cf-button--outlined {
+  border: 1px solid var(--cf-blue-3);
+
+  &:hover:not(:active) {
+    border-color: var(--hover-background);
+  }
+
+  &:active {
+    --color: #fff;
+    --background: var(--cf-blue-4);
+  }
+
+  --default-color: var(--cf-blue-3);
+  --default-background: none !important;
+  --hover-color: #fff;
+  --hover-background: var(--cf-blue-2);
+
+
+  &.cf-button--red {
+    border-color: var(--cf-red-3);
+
     &:hover:not(:active) {
-      --background-color: transparent;
+      border-color: var(--hover-background);
     }
 
     &:active {
-      --background-color: var(--cf-gray-9);
+      --color: #fff;
+      --background: var(--cf-red-4);
     }
-  
-    &-red { 
-      &:hover:not(:active) {
-        --color: var(--cf-red-3);
-        --background-color: transparent;
-      }
 
-      &:active {
-        --color: #fff;
-        --background-color: var(--cf-red-3);
-      }
-    }
-  
-    &-blue {
-      &:hover:not(:active) {
-        --color: var(--cf-blue-3);
-        --background-color: transparent;
-      }
+    --default-color: var(--cf-red-3);
+    --hover-color: #fff;
+    --hover-background: var(--cf-red-2);
+  }
 
-      &:active {
-        --color: #fff;
-        --background-color: var(--cf-blue-2);
-      }
+  &.cf-button--gray {
+    border-color: #000;
+
+    &:hover:not(:active) {
+      border-color: #000;
     }
+
+    &:active {
+      --color: #000;
+      --background: none;
+    }
+
+    --default-color: #000;
+    --hover-color: #000;
+    --hover-background: var(--cf-gray-9);
   }
 }
 </style>
