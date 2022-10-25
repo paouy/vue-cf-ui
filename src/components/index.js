@@ -1,3 +1,4 @@
+import '../assets/style.css'
 import AppBar from '../components/AppBar/AppBar.vue'
 import AppBarLink from '../components/AppBar/AppBarLink.vue'
 import AppBody from '../components/AppBody/AppBody.vue'
