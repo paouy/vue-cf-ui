@@ -1,0 +1,82 @@
+.cf-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color);
+  font-size: 0.875rem;
+  line-height: 1.2;
+  padding: 0 1rem;
+  border-radius: 0.3125rem;
+  background-color: var(--background);
+  position: relative;
+  width: fit-content;
+  min-width: fit-content;
+  white-space: nowrap;
+  height: 2.05rem;
+  transition-property: color, border-color, background-color;
+  transition-duration: 200ms;
+  transition-timing-function: ease;
+  cursor: pointer;
+  --color: var(--default-color);
+  --background: var(--default-background);
+
+  &:hover:not(:active) {
+    --color: var(--hover-color);
+    --background: var(--hover-background);
+  }
+
+  &:active {
+    --color: var(--active-color);
+    --background: var(--active-background);
+  }
+
+  &--large {
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 0 4rem;
+    height: 2.8125rem;
+  }
+
+  &--loading {
+    color: transparent;
+    pointer-events: none;
+
+    &::before {
+      display: block;
+      content: '•••';
+      color: var(--color);
+      text-align: center;
+      width: 100%;
+      position: absolute;
+      left: 0;
+      animation: cf-loading 1s linear infinite;
+    }
+
+    @keyframes cf-loading {
+      50% {
+        opacity: 0
+      }
+    }
+  }
+}
+
+[inert] .cf-button:not(.cf-button--loading),
+[disabled] .cf-button:not(.cf-button--loading),
+.cf-button--disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .cf-button {
+    &:hover:not(:active) {
+      --color: var(--default-color);
+      --background: var(--default-background);
+    }
+
+    &:active {
+      --color: var(--hover-color);
+      --background: var(--hover-background);
+    }
+  }
+}

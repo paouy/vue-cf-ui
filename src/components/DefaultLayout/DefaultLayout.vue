@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted } from 'vue'
-import CfAppBar from './CfAppBar.vue'
-import CfSidebar from './CfSidebar.vue'
+import AppBar from '../AppBar/AppBar.vue'
+import Sidebar from '../Sidebar/Sidebar.vue'
 
 onMounted(() => {
   document.body.dataset.layout = 'default'
@@ -9,17 +9,17 @@ onMounted(() => {
 </script>
 
 <template>
-  <cf-app-bar>
+  <app-bar>
     <template v-slot:left>
       <slot name="brand"></slot>
     </template>
     <template v-slot:right>
       <slot name="navigation"></slot>
     </template>
-  </cf-app-bar>
-  <cf-sidebar>
+  </app-bar>
+  <sidebar>
     <slot name="sidebar"></slot>
-  </cf-sidebar>
+  </sidebar>
   <main>
     <slot name="main"></slot>
   </main>

@@ -1,5 +1,5 @@
 <script setup>
-import CfDropdown from './CfDropdown.vue'
+import CfDropdown from '../Dropdown/Dropdown.vue'
 
 const props = defineProps({
   dropdown: Boolean
@@ -7,10 +7,10 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="cf-nav-item" v-if="dropdown">
+  <div class="cf-app-bar-link" v-if="dropdown">
     <cf-dropdown>
       <template v-slot:toggle>
-        <div class="cf-nav-item__label">
+        <div class="cf-app-bar-link__label">
           <slot></slot>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16">
             <path d="M14.15 4.492H1.85l-.354.854 6.15 6.15h.707l6.15-6.15-.353-.854z"></path>
@@ -23,15 +23,15 @@ const props = defineProps({
     </cf-dropdown>
   </div>
   
-  <button class="cf-nav-item" v-else>
-    <div class="cf-nav-item__label">
+  <button class="cf-app-bar-link" v-else>
+    <div class="cf-app-bar-link__label">
       <slot></slot>
     </div>
   </button>
 </template>
 
 <style lang="scss">
-.cf-nav-item {
+.cf-app-bar-link {
   flex-shrink: 0;
 
   &__label {
@@ -57,7 +57,7 @@ const props = defineProps({
 }
 
 @media (hover: none) and (pointer: coarse) {
-  .cf-nav-item__label {
+  .cf-app-bar-link__label {
     &:hover:not(:active) {
       background-color: #fff;
     }
