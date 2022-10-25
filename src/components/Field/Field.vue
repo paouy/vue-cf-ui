@@ -33,6 +33,7 @@ const computedValue = computed({
       :disabled="props.disabled"
       v-if="props.type === 'select'"
     >
+      <option :value="null" v-if="!props.required"></option>
       <option
         v-for="option in props.options"
         :key="option.value || option"
@@ -114,7 +115,7 @@ const computedValue = computed({
   }
 
   select {
-    padding-left: 2rem;
+    padding-right: 2rem;
     background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" height="12" viewBox="0 0 16 16" fill="%23595959"><path d="M14.15 4.492H1.85l-.354.854 6.15 6.15h.707l6.15-6.15-.353-.854z"></path></svg>') calc(100% - 0.625rem) center no-repeat;
   }
 }
