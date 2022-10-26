@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 
-const emit = defineEmits(['update:modelValue', 'cancel'])
+const emit = defineEmits(['update:modelValue', 'add', 'cancel'])
 
 const props = defineProps({
   modelValue: File,
@@ -62,6 +62,7 @@ const emitFile = (file) => {
     alert(`File cannot exceed ${props.max} MB`)
   } else {
     emit('update:modelValue', file)
+    emit('add', file)
   }
 }
 
