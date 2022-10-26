@@ -1,6 +1,6 @@
 <script setup>
 import { useSlots, ref, computed, watch, provide } from 'vue'
-import { CfField } from 'vue-cf-ui'
+import Field from '../Field/Field.vue'
 import DataTableItem from './DataTableItem.vue'
 
 const slots = useSlots()
@@ -91,7 +91,7 @@ provide('columns', props.columns)
       <div class="cf-data-table__header__title" v-if="props.title">{{ props.title }}</div>
       <div class="cf-data-table__header__toolbar" v-if="slots.actions || props.searchKey">
         <div class="cf-data-table__header__toolbar__search" v-if="props.searchKey">
-          <cf-field v-model="searchString" type="text" label="Search"/>
+          <field v-model="searchString" type="text" label="Search"/>
         </div>
         <slot name="actions"></slot>
       </div>
