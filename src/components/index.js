@@ -2,6 +2,7 @@ import '../assets/style.css'
 import AppBar from '../components/AppBar/AppBar.vue'
 import AppBarLink from '../components/AppBar/AppBarLink.vue'
 import AppBody from '../components/AppBody/AppBody.vue'
+import Banner from '../components/Banner/Banner.vue'
 import FilledButton from '../components/Button/FilledButton.vue'
 import OutlinedButton from '../components/Button/OutlinedButton.vue'
 import TextButton from '../components/Button/TextButton.vue'
@@ -23,6 +24,7 @@ export {
   AppBar as CfAppBar,
   AppBarLink as CfAppBarLink,
   AppBody as CfAppBody,
+  Banner as CfBanner,
   FilledButton as CfFilledButton,
   OutlinedButton as CfOutlinedButton,
   TextButton as CfTextButton,
