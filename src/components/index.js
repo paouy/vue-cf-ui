@@ -8,6 +8,7 @@ import OutlinedButton from '../components/Button/OutlinedButton.vue'
 import TextButton from '../components/Button/TextButton.vue'
 import Choice from '../components/Choice/Choice.vue'
 import ChoiceList from '../components/ChoiceList/ChoiceList.vue'
+import DataTable from '../components/DataTable/DataTable.vue'
 import DefaultLayout from '../components/DefaultLayout/DefaultLayout.vue'
 import Dialog from '../components/Dialog/Dialog.vue'
 import Dropdown from '../components/Dropdown/Dropdown.vue'
@@ -30,6 +31,7 @@ export {
   TextButton as CfTextButton,
   Choice as CfChoice,
   ChoiceList as CfChoiceList,
+  DataTable as CfDataTable,
   DefaultLayout as CfDefaultLayout,
   Dialog as CfDialog,
   Dropdown as CfDropdown,
