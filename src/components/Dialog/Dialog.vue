@@ -16,7 +16,7 @@ onMounted(() => dialog.value.showModal())
 <template>
   <dialog class="cf-dialog" ref="dialog">
     <div class="cf-dialog-header">
-      <h1>{{ props.title }}</h1>
+      <div class="cf-dialog__title">{{ props.title }}</div>
       <div v-if="props.description">{{ props.description }}</div>
     </div>
     <div class="cf-dialog-body">
@@ -41,7 +41,7 @@ onMounted(() => dialog.value.showModal())
   width: calc(100% - 3rem);
   max-width: 40rem;
   box-shadow: rgb(0 0 0 / 0.75) 0.125rem 0.25rem 1.25rem 0;
-  position: relative;
+  position: fixed;
 
   &-close {
     display: grid;
@@ -57,11 +57,11 @@ onMounted(() => dialog.value.showModal())
     display: grid;
     gap: 0.5rem;
     padding: 1rem 3rem 0 2rem;
+  }
 
-    h1 {
-      font-size: 1.5rem;
-      line-height: 1.875rem;
-    }
+  &__title {
+    font-size: 1.5rem;
+    line-height: 1.875rem;
   }
 
   &-body {
