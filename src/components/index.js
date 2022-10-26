@@ -32,7 +32,7 @@ export {
   Dialog as CfDialog,
   Dropdown as CfDropdown,
   DropdownItem as CfDropdownItem,
-  DropZone as CfDropzone,
+  DropZone as CfDropZone,
   Field as CfField,
   Progress as CfProgress,
   Sidebar as CfSidebar,

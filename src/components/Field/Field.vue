@@ -7,6 +7,7 @@ const props = defineProps({
   modelValue: [Number, String],
   type: String,
   label: String,
+  placeholder: String,
   options: Array,
   list: String,
   helper: String,
@@ -55,6 +56,7 @@ const computedValue = computed({
       class="cf-field__input"
       v-model="computedValue"
       :type="props.type"
+      :placeholder="props.placeholder"
       :list="props.list"
       :required="props.required"
       :disabled="props.disabled"
