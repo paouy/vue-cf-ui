@@ -14,7 +14,7 @@ onMounted(() => dialog.value.showModal())
 </script>
 
 <template>
-  <dialog class="cf-dialog" ref="dialog">
+  <dialog class="cf-dialog" ref="dialog" @keyup.delete="emit('close')">
     <div class="cf-dialog-header">
       <div class="cf-dialog__title">{{ props.title }}</div>
       <div v-if="props.description">{{ props.description }}</div>
