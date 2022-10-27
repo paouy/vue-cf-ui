@@ -21,12 +21,20 @@ const isExpanded = ref(false)
         {{ data[column.key] }}
       </div>
     </div>
-    <button class="cf-data-table-item__toggle"
+    <button
+      class="cf-data-table-item__toggle"
       @click="isExpanded = !isExpanded"
       v-if="props.expandable"
     >
       <span class="material-symbols-outlined"></span>
     </button>
+    <router-link
+      class="cf-data-table-item__toggle"
+      :to="props.data.to"
+      v-if="props.data.to"
+    >
+      <span class="material-symbols-outlined"></span>
+    </router-link>
     <div class="cf-data-table-item__backdrop"
       @click="isExpanded = false"
       v-if="props.expandable && isExpanded"

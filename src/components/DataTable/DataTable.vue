@@ -7,8 +7,17 @@ const slots = useSlots()
 
 const props = defineProps({
   title: String,
+  description: String,
   expandable: Boolean,
+  paginate: {
+    type: Boolean,
+    default: true
+  },
   searchKey: String,
+  pluralTerm: {
+    type: String,
+    default: 'items'
+  },
   itemKey: String,
   pageSize: {
     type: [Number, String],
@@ -58,10 +67,14 @@ const pagination = computed(() => {
 })
 
 const paginatedData = computed(() => {
-  return filteredData.value.slice(
-    (currentPage.value - 1) * parseInt(props.pageSize),
-    currentPage.value * parseInt(props.pageSize)
-  )
+  if (props.paginate) {
+    return filteredData.value.slice(
+      (currentPage.value - 1) * parseInt(props.pageSize),
+      currentPage.value * parseInt(props.pageSize)
+    )
+  } else {
+    return filteredData.value
+  }
 })
 
 const showNextPage = () => {
@@ -88,12 +101,19 @@ provide('columns', props.columns)
 <template>
   <div class="cf-data-table">
     <div class="cf-data-table__header">
-      <div class="cf-data-table__header__title" v-if="props.title">{{ props.title }}</div>
-      <div class="cf-data-table__header__toolbar" v-if="slots.actions || props.searchKey">
-        <div class="cf-data-table__header__toolbar__search" v-if="props.searchKey">
+      <div class="cf-data-table__header__content">
+        <div class="cf-data-table__title" v-if="props.title">
+          {{ props.title }}
+        </div>
+        <div class="cf-data-table__description" v-if="props.description">
+          {{ props.description }}
+        </div>
+        <div class="cf-data-table__search" v-if="props.searchKey">
           <field v-model="searchString" type="text" label="Search"/>
         </div>
-        <slot name="actions"></slot>
+        <div class="cf-data-table__actions" v-if="slots.actions">
+          <slot name="actions"></slot>
+        </div>
       </div>
       <div class="cf-data-table__header__slot" v-if="slots.header">
         <slot name="header"></slot>
@@ -116,7 +136,7 @@ provide('columns', props.columns)
         </data-table-item>
       </div>
     </div>
-    <div class="cf-data-table__footer">
+    <div class="cf-data-table__footer" v-if="props.paginate">
       <div class="cf-data-table__footer__pagination">
         <button :disabled="currentPage <= 1" @click="showPreviousPage">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
@@ -142,33 +162,67 @@ provide('columns', props.columns)
   border-radius: 0.3125rem;
 
   &__header {
-    padding: 1rem;
-
-    &__title {
-      font-size: 1.25rem;
-      font-weight: 600;
-
-      &:not(:only-child) {
-        margin-bottom: 2rem;
-      }
+    &__content {
+      margin: 1rem;
     }
 
-    &__toolbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      gap: 0.5rem;
+    &__slot {
+      margin: 1rem;
+    }
+  }
 
-      &__search {
-        flex-grow: 1;
-        max-width: 70%;
-      }
+  &__title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    order: 1;
+  }
+
+  &__description {
+    order: 3;
+    margin-top: 1rem;
+  }
+
+  &__search {
+    order: 4;
+    margin-top: 1rem;
+
+    &:nth-child(2) + div {
+      align-self: flex-end;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 0.5rem;
+    order: 2;
+    grid-row: span 3;
+    align-self: center;
+    margin-top: 0.5rem;
+
+    &:nth-child(4) {
+      align-self: flex-end;
+    }
+
+    > * {
+      width: 100%;
     }
   }
 
   &__body {
     &__header {
       display: none;
+    }
+
+    &__items {
+      &:empty {
+        border-top: 1px solid var(--cf-gray-8);
+        padding: 1rem 2rem;
+
+        &::before {
+          content: 'You do not have any items to display.';
+        }
+      }
     }
   }
 
@@ -199,15 +253,32 @@ provide('columns', props.columns)
 }
 
 @media (min-width: 755px ) {
-  .cf-data-table__body__header {
-    display: grid;
-    grid-template-columns: repeat(var(--columns), 1fr);
-    font-weight: 600;
-    padding: 0 1.5rem;
-    background: #f2f2f2;
+  .cf-data-table {
+    &__header {
+      &__content {
+        display: grid;
+        grid-template-columns: 1fr fit-content(100%);
+        column-gap: 0.5rem;
+      }
+    }
 
-    > div {
-      padding: 0.5rem;
+    &__actions {
+      flex-direction: row-reverse;
+      padding-bottom: 1px;
+    }
+
+    &__body {
+      &__header {
+        display: grid;
+        grid-template-columns: repeat(var(--columns), 1fr);
+        font-weight: 600;
+        padding: 0 1.5rem;
+        background: #f2f2f2;
+
+        > div {
+          padding: 0.5rem;
+        }
+      }
     }
   }
 }
