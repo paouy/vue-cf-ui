@@ -265,6 +265,7 @@ provide('columns', props.columns)
     &__actions {
       flex-direction: row-reverse;
       padding-bottom: 1px;
+      margin-top: 0;
     }
 
     &__body {
