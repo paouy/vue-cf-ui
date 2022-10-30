@@ -22,6 +22,9 @@ const props = defineProps({
   line-height: 1.3125rem;
   text-decoration: underline;
   text-underline-offset: 0.25rem;
+  white-space: nowrap;
+  width: fit-content;
+  min-width: fit-content;
   cursor: pointer;
 }
 </style>

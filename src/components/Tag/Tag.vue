@@ -10,7 +10,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="tag">
+  <div class="cf-tag">
     <span>
       <slot></slot>
     </span>
@@ -23,7 +23,7 @@ const props = defineProps({
 </template>
 
 <style lang="scss">
-.tag {
+.cf-tag {
   display: flex;
   align-items: center;
   font-size: 0.875rem;
