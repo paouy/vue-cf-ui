@@ -21,6 +21,8 @@ import Sidebar from './Sidebar/Sidebar.vue'
 import SidebarLink from './Sidebar/SidebarLink.vue'
 import Spinner from './Spinner/Spinner.vue'
 import Switch from './Switch/Switch.vue'
+import Tag from './Tag/Tag.vue'
+import TagsField from './TagsField/TagsField.vue'
 
 export {
   ActionCard as CfActionCard,
@@ -44,5 +46,7 @@ export {
   Sidebar as CfSidebar,
   SidebarLink as CfSidebarLink,
   Spinner as CfSpinner,
-  Switch as CfSwitch
+  Switch as CfSwitch,
+  Tag as CfTag,
+  TagsField as CfTagsField
 }
