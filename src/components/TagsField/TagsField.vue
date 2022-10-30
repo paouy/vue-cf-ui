@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import CfField from '../Field/Field.vue'
 import CfOutlinedButton from '../Button/OutlinedButton.vue';
 import CfTag from '../Tag/Tag.vue'
@@ -14,15 +14,26 @@ const props = defineProps({
     default: 'Add'
   },
   prefix: String,
+  options: Array,
   helper: String,
-  disabled: Boolean
+  disabled: Boolean,
+  required: Boolean
 })
 
 const toggled = ref(false)
+
 const tag = ref('')
 
+const options = computed(() => {
+  if (props.options) {
+    return props.options.filter(option => !props.modelValue.includes(option))
+  } else {
+    return null
+  }
+})
+
 const addTag = () => {
-  if (!tag.value) {
+  if (!tag.value || props.disabled) {
     return false
   }
 
@@ -37,6 +48,10 @@ const addTag = () => {
 }
 
 const removeTag = (index) => {
+  if (props.disabled) {
+    return false
+  }
+
   const tags = props.modelValue
 
   tags.splice(index, 1)
@@ -46,23 +61,36 @@ const removeTag = (index) => {
 </script>
 
 <template>
-  <div class="cf-tags-field">
+  <div class="cf-tags-field" :inert="props.disabled">
     <label v-if="props.label">{{ props.label }}</label>
     <div class="cf-tags-field__input">
       <cf-field
         v-model="tag"
-        type="text"
+        :type="props.options ? 'select' : 'text'"
         :prefix="props.prefix"
+        :options="options"
         @keydown.enter="addTag"
+        @change="addTag"
+        required
         v-if="toggled"
       />
-      <cf-outlined-button color="blue" @click="toggled = true" v-else>{{ props.buttonText }}</cf-outlined-button>
+      <cf-outlined-button
+        color="blue"
+        @click="toggled = true"
+        v-else
+      >
+        {{ props.buttonText }}
+      </cf-outlined-button>
+      <input
+        class="cf-tags-field__input__faux"
+        type="text"
+        :required="props.required && !props.modelValue.length"
+      >
     </div>
     <div class="cf-tags-field__tags">
       <cf-tag
         v-for="(tag, index) in props.modelValue"
         :key="tag"
-        :removable="!props.disabled"
         @remove="removeTag(index)"
       >
         {{ props.prefix }} {{ tag }}
@@ -76,6 +104,11 @@ const removeTag = (index) => {
 .cf-tags-field {
   display: grid;
 
+  &[inert] {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
   label {
     font-size: 0.875rem;
   }
@@ -87,6 +120,16 @@ const removeTag = (index) => {
   &__input {
     margin: 0.25rem 0;
     min-height: 2.125rem;
+    position: relative;
+
+    &__faux {
+      opacity: 0;
+      width: 1px;
+      height: 1px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
   }
 
   &__tags {
@@ -99,5 +142,10 @@ const removeTag = (index) => {
       margin: 0.25rem 0;
     }
   }
+}
+
+[inert] .cf-tags-field,
+[disabled] .cf-tags-field {
+  opacity: 0.5;
 }
 </style>
