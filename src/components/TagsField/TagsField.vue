@@ -1,8 +1,8 @@
 <script setup>
 import { ref } from 'vue'
 import CfField from '../Field/Field.vue'
+import CfOutlinedButton from '../Button/OutlinedButton.vue';
 import CfTag from '../Tag/Tag.vue'
-import { CfOutlinedButton } from '..';
 
 const emit = defineEmits(['update:modelValue'])
 
@@ -22,6 +22,10 @@ const toggled = ref(false)
 const tag = ref('')
 
 const addTag = () => {
+  if (!tag.value) {
+    return false
+  }
+
   const tags = props.modelValue
 
   tags.push(tag.value)
@@ -42,24 +46,19 @@ const removeTag = (index) => {
 </script>
 
 <template>
-  <div class="tags-field">
+  <div class="cf-tags-field">
     <label v-if="props.label">{{ props.label }}</label>
-    <cf-outlined-button
-      color="blue"
-      :disabled="props.disabled"
-      @click="toggled = true"
-      v-if="!toggled"
-    >
-      {{ props.buttonText }}
-    </cf-outlined-button>
-    <cf-field
-      v-model="tag"
-      type="text"
-      :prefix="props.prefix"
-      @keydown.enter="addTag"
-      v-else
-    />
-    <div class="tags-field__tags">
+    <div class="cf-tags-field__input">
+      <cf-field
+        v-model="tag"
+        type="text"
+        :prefix="props.prefix"
+        @keydown.enter="addTag"
+        v-if="toggled"
+      />
+      <cf-outlined-button color="blue" @click="toggled = true" v-else>{{ props.buttonText }}</cf-outlined-button>
+    </div>
+    <div class="cf-tags-field__tags">
       <cf-tag
         v-for="(tag, index) in props.modelValue"
         :key="tag"
@@ -74,7 +73,9 @@ const removeTag = (index) => {
 </template>
 
 <style lang="scss">
-.tags-field {
+.cf-tags-field {
+  display: grid;
+
   label {
     font-size: 0.875rem;
   }
@@ -83,13 +84,19 @@ const removeTag = (index) => {
     font-size: 0.75rem;
   }
 
+  &__input {
+    margin: 0.25rem 0;
+    min-height: 2.125rem;
+  }
+
   &__tags {
     display: flex;
     align-items: center;
     gap: 0.25rem;
-
+    flex-wrap: wrap;
+    
     &:not(:empty) {
-      margin: 0.5rem 0 0.25rem;
+      margin: 0.25rem 0;
     }
   }
 }
