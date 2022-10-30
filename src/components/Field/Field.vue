@@ -90,6 +90,7 @@ const computedValue = computed({
 .cf-field {
   display: flex;
   flex-wrap: wrap;
+  flex-grow: 1;
   align-items: center;
   row-gap: 0.25rem;
   position: relative;
