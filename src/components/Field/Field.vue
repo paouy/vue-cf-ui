@@ -8,6 +8,8 @@ const props = defineProps({
   type: String,
   label: String,
   placeholder: String,
+  prefix: String,
+  suffix: String,
   options: Array,
   list: String,
   helper: String,
@@ -34,7 +36,10 @@ const computedValue = computed({
       :disabled="props.disabled"
       v-if="props.type === 'select'"
     >
-      <option :value="null" v-if="!props.required"></option>
+      <option
+        :value="null"
+        v-if="!props.required && props.options.length"
+      ></option>
       <option
         v-for="option in props.options"
         :key="option.value || option"
@@ -62,53 +67,102 @@ const computedValue = computed({
       :disabled="props.disabled"
       v-else
     >
+    <div
+      class="cf-field__prefix"
+      v-if="props.prefix && !['select', 'textarea'].includes(props.type)"
+    >
+      {{ props.prefix }}
+    </div>
+    <div
+      class="cf-field__suffix"
+      v-if="props.suffix && !['select', 'textarea'].includes(props.type)"
+    >
+      {{ props.suffix }}
+    </div>
 
     <label v-if="props.label">{{ props.label }}</label>
     <small v-if="props.helper">{{ props.helper }}</small>
+    <div class="cf-field__outline"></div>
   </div>
 </template>
 
 <style lang="scss">
 .cf-field {
-  display: grid;
-  gap: 0.25rem;
-  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  row-gap: 0.25rem;
+  position: relative;
 
   label {
     order: 1;
     font-size: 0.875rem;
+    width: 100%;
+
+    ~ div:last-child {
+      top: 1.5625rem;
+    }
   }
 
-  small {
-    order: 3;
-    font-size: 0.75rem;
+  &__prefix {
+    order: 2;
+    padding-left: 0.5rem;
+  }
+
+  &__suffix {
+    order: 4;
+    padding-right: 0.5rem;
+  }
+
+  &__prefix,
+  &__suffix {
+    font-size: 0.875rem;
+    line-height: normal;
+    width: fit-content;
   }
 
   &__input {
-    order: 2;
+    order: 3;
     font-size: 0.875rem;
     line-height: normal;
     padding: 0.5rem;
-    border: 1px solid var(--cf-gray-5);
-    border-radius: 0.3125rem;
-    min-width: 0;
-    transition: border-color 0.2s ease 0s;
+    height: 2.125rem;
+    flex-grow: 1;
 
-    &:not(:disabled) {
-      &:hover {
-        border-color: var(--cf-blue-4);
+    &:is(select) {
+      padding-right: 2rem;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" height="12" viewBox="0 0 16 16" fill="%23595959"><path d="M14.15 4.492H1.85l-.354.854 6.15 6.15h.707l6.15-6.15-.353-.854z"></path></svg>') calc(100% - 0.625rem) center no-repeat;
+      cursor: pointer;
+    }
+
+    &:is(textarea) {
+      height: 4.5rem;
+      resize: none;
+
+      ~ div:last-child {
+        height: 4.5rem;
       }
+    }
 
-      &:focus {
+    &:focus:not(:disabled) {
+      outline: none;
+
+      ~ div:last-child {
         border-color: var(--cf-blue-4);
         outline: 2px solid var(--cf-blue-4);
         outline-offset: 3px;
       }
     }
 
+    &:hover:not(:disabled) {
+      ~ div:last-child {
+        border-color: var(--cf-blue-4);
+      }
+    }
+
     &:disabled {
       opacity: 0.5;
-      cursor: not-allowed;
+      cursor: default;
 
       ~ * {
         opacity: 0.5;
@@ -116,9 +170,21 @@ const computedValue = computed({
     }
   }
 
-  select {
-    padding-right: 2rem;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" height="12" viewBox="0 0 16 16" fill="%23595959"><path d="M14.15 4.492H1.85l-.354.854 6.15 6.15h.707l6.15-6.15-.353-.854z"></path></svg>') calc(100% - 0.625rem) center no-repeat;
+  small {
+    order: 5;
+    font-size: 0.75rem;
+    width: 100%;
+  }
+
+  &__outline {
+    border: 1px solid var(--cf-gray-5);
+    border-radius: 0.3125rem;
+    width: 100%;
+    height: 2.125rem;
+    position: absolute;
+    left: 0;
+    top: 0;
+    pointer-events: none;
   }
 }
 
