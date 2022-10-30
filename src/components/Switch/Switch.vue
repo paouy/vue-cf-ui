@@ -47,7 +47,7 @@ const computedValue = computed({
 .cf-switch {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 0.75rem;
   width: fit-content;
 
   &__box {
