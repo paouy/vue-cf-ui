@@ -103,6 +103,7 @@ const removeTag = (index) => {
 <style lang="scss">
 .cf-tags-field {
   display: grid;
+  height: fit-content;
 
   &[inert] {
     opacity: 0.5;

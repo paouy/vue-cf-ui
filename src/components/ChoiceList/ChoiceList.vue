@@ -48,13 +48,15 @@ provide('choice-list-required', props.required)
       :disabled="props.disabled"
       v-model="computedValue"
     />
+    <slot></slot>
   </div>
 </template>
 
 <style lang="scss">
 .cf-choice-list {
   display: grid;
-  gap: 1rem;
+  gap: 0.5rem;
+  height: fit-content;
 
   &__label {
     font-size: 0.875rem;
@@ -64,5 +66,10 @@ provide('choice-list-required', props.required)
   &--disabled {
     --opacity: 0.5;
   }
+}
+
+[inert] .cf-choice-list,
+[disabled] .cf-choice-list {
+  opacity: 0.5;
 }
 </style>
