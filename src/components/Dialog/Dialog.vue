@@ -10,11 +10,17 @@ const props = defineProps({
 
 const dialog = ref(null)
 
-onMounted(() => dialog.value.showModal())
+onMounted(() => {
+  dialog.value.showModal()
+
+  dialog.value.addEventListener('close', () => {
+    emit('close')
+  })
+})
 </script>
 
 <template>
-  <dialog class="cf-dialog" ref="dialog" @keyup.delete="emit('close')">
+  <dialog class="cf-dialog" ref="dialog">
     <div class="cf-dialog-header">
       <div class="cf-dialog__title">{{ props.title }}</div>
       <div v-if="props.description">{{ props.description }}</div>
@@ -42,6 +48,7 @@ onMounted(() => dialog.value.showModal())
   max-width: 40rem;
   box-shadow: rgb(0 0 0 / 0.75) 0.125rem 0.25rem 1.25rem 0;
   position: fixed;
+  user-select: none;
 
   &-close {
     display: grid;
