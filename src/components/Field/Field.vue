@@ -93,6 +93,7 @@ const computedValue = computed({
   flex-grow: 1;
   align-items: center;
   row-gap: 0.25rem;
+  height: fit-content;
   position: relative;
 
   label {
