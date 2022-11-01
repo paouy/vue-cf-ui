@@ -21,6 +21,7 @@ import Sidebar from './Sidebar/Sidebar.vue'
 import SidebarLink from './Sidebar/SidebarLink.vue'
 import Spinner from './Spinner/Spinner.vue'
 import Switch from './Switch/Switch.vue'
+import TabNavigation from './TabNavigation/TabNavigation.vue'
 import Tag from './Tag/Tag.vue'
 import TagsField from './TagsField/TagsField.vue'
 
@@ -47,6 +48,7 @@ export {
   SidebarLink as CfSidebarLink,
   Spinner as CfSpinner,
   Switch as CfSwitch,
+  TabNavigation as CfTabNavigation,
   Tag as CfTag,
   TagsField as CfTagsField
 }
