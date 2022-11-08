@@ -163,7 +163,12 @@ provide('columns', props.columns)
 
   &__header {
     &__content {
+      display: grid;
       margin: 1rem;
+
+      > :first-child {
+        margin-top: 0;
+      }
     }
 
     &__slot {
@@ -172,37 +177,27 @@ provide('columns', props.columns)
   }
 
   &__title {
+    order: 1;
     font-size: 1.25rem;
     font-weight: 600;
-    order: 1;
   }
 
   &__description {
-    order: 3;
+    order: 2;
     margin-top: 1rem;
   }
 
   &__search {
-    order: 4;
+    order: 3;
     margin-top: 1rem;
-
-    &:nth-child(2) + div {
-      align-self: flex-end;
-    }
   }
 
   &__actions {
+    order: 4;
     display: flex;
     flex-direction: column-reverse;
     gap: 0.5rem;
-    order: 2;
-    grid-row: span 3;
-    align-self: center;
     margin-top: 0.5rem;
-
-    &:nth-child(4) {
-      align-self: flex-end;
-    }
 
     > * {
       width: 100%;
@@ -252,20 +247,43 @@ provide('columns', props.columns)
   }
 }
 
-@media (min-width: 755px ) {
+@media (min-width: 755px) {
   .cf-data-table {
     &__header {
       &__content {
-        display: grid;
         grid-template-columns: 1fr fit-content(100%);
-        column-gap: 0.5rem;
+
+        > * {
+          grid-column: 1;
+        }
+      }
+    }
+
+    &__description {
+      &:first-child {
+        ~ :last-child:nth-child(3) {
+          align-self: flex-end;
+        }
+      }
+
+      ~ :last-child:nth-child(3) {
+        grid-row: -1 / span 2;
+        align-self: center;
+      }
+    }
+
+    &__search {
+      &:last-child:nth-child(3) {
+        grid-row: 3;
       }
     }
 
     &__actions {
+      grid-column: 2;
       flex-direction: row-reverse;
       padding-bottom: 1px;
-      margin-top: 0;
+      align-self: flex-end;
+      margin: 0 0 0 0.5rem;
     }
 
     &__body {
