@@ -2,7 +2,7 @@
 import {
   CfDefaultLayout,
   CfSidebarLink,
-  CfAppBody
+  CfAppView
 } from './components'
 </script>
 
@@ -16,9 +16,9 @@ import {
       <cf-sidebar-link href="https://github.com/paouy/vue-cf-ui" icon="code">Repository</cf-sidebar-link>
     </template>
     <template v-slot:main>
-      <cf-app-body>
+      <cf-app-view>
         Hello world!
-      </cf-app-body>
+      </cf-app-view>
     </template>
   </cf-default-layout>
 </template>
