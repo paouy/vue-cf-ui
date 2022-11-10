@@ -10,8 +10,8 @@ const props = defineProps({
 
 const classes = computed(() => {
   return {
-    'cf-app-body': true,
-    'cf-app-body--wide': props.wide
+    'cf-app-view': true,
+    'cf-app-view--wide': props.wide
   }
 })
 </script>
@@ -23,7 +23,7 @@ const classes = computed(() => {
 </template>
 
 <style lang="scss">
-.cf-app-body {
+.cf-app-view {
   margin: 0 auto;
   width: 100%;
   max-width: 64rem;
@@ -34,7 +34,7 @@ const classes = computed(() => {
 }
 
 @media (min-width: 880px) {
-  .cf-app-body {
+  .cf-app-view {
     width: 90%;
   }
 }
