@@ -7,26 +7,14 @@ const commonProps = {
     type: String,
     default: 'button'
   },
-  large: {
-    type: Boolean,
-    default: false
-  },
-  wide: {
-    type: Boolean,
-    default: false
-  },
+  large: Boolean,
+  wide: Boolean,
   color: {
     type: String,
     default: null
   },
-  loading: {
-    type: Boolean,
-    default: false
-  },
-  disabled: {
-    type: Boolean,
-    default: false
-  }
+  loading: Boolean,
+  disabled: Boolean
 }
 
 export default commonProps
