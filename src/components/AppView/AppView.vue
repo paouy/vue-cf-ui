@@ -2,10 +2,9 @@
 import { computed } from 'vue'
 
 const props = defineProps({
-  wide: {
-    type: Boolean,
-    default: false
-  }
+  title: String,
+  breadcrumbs: Array,
+  wide: Boolean
 })
 
 const classes = computed(() => {

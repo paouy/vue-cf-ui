@@ -14,10 +14,7 @@ const props = defineProps({
     default: 0
   },
   accept: String,
-  required: {
-    type: Boolean,
-    default: false
-  }
+  required: Boolean
 })
 
 const input = ref(null)
