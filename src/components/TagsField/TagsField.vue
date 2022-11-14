@@ -25,17 +25,13 @@ const toggled = ref(false)
 const tag = ref('')
 
 const options = computed(() => {
-  if (!props.options) {
-    return null
-  }
-
-  return props.options.map(option => ({
+  return props.options?.map(option => ({
     label: option.label || option,
     value: option.value || option
   }))
 })
 
-const allowedOptions = computed(() => options.value.filter(
+const allowedOptions = computed(() => options.value?.filter(
   option => !props.modelValue.includes(option.value)
 ))
 
@@ -104,7 +100,7 @@ const removeTag = (index) => {
         :key="tag"
         @remove="removeTag(index)"
       >
-        {{ props.prefix }} {{ getTagLabel(tag) }}
+        {{ props.prefix }} {{ props.options ? getTagLabel(tag) : tag }}
       </cf-tag>
     </div>
     <small v-if="props.helper">{{ props.helper }}</small>
