@@ -22,7 +22,7 @@ const rootClasses = computed(() => {
   <div :class="rootClasses">
     <ol class="cf-app-view-breadcrumbs" v-if="props.breadcrumbs">
       <li v-for="route in props.breadcrumbs" :key="route.name">
-        <a :href="route.path" v-if="route.path">{{ route.name }}</a>
+        <router-link :to="route.path" v-if="route.path">{{ route.name }}</router-link>
         <span v-else>{{ route.name }}</span>
       </li>
     </ol>
