@@ -14,7 +14,9 @@ const isExpanded = ref(false)
 <template>
   <div class="cf-data-table-item">
     <div class="cf-data-table-item__drawer" v-if="isExpanded">
-      <slot :item="props.data"></slot>
+      <div class="cf-data-table-item__drawer__content">
+        <slot :item="props.data"></slot>
+      </div>
     </div>
     <div class="cf-data-table-item__content">
       <div v-for="column in columns" :key="column.key" :data-label="column.label">
@@ -108,6 +110,10 @@ const isExpanded = ref(false)
     box-shadow: rgb(0 0 0 / 12%) 0 0 5px 5px;
     position: relative;
     z-index: 500;
+
+    &__content {
+      position: relative;
+    }
 
     ~ button {
       --icon: '\e5c5';
