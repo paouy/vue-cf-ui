@@ -25,12 +25,23 @@ const toggled = ref(false)
 const tag = ref('')
 
 const options = computed(() => {
-  if (props.options) {
-    return props.options.filter(option => !props.modelValue.includes(option))
-  } else {
+  if (!props.options) {
     return null
   }
+
+  return props.options.map(option => ({
+    label: option.label || option,
+    value: option.value || option
+  }))
 })
+
+const allowedOptions = computed(() => options.value.filter(
+  option => !props.modelValue.includes(option.value)
+))
+
+const getTagLabel = (tag) => {
+  return options.value.find(option => option.value === tag).label
+}
 
 const addTag = () => {
   if (!tag.value || props.disabled) {
@@ -68,7 +79,7 @@ const removeTag = (index) => {
         v-model="tag"
         :type="props.options ? 'select' : 'text'"
         :prefix="props.prefix"
-        :options="options"
+        :options="allowedOptions"
         @keydown.enter="addTag"
         @change="addTag"
         required
@@ -93,7 +104,7 @@ const removeTag = (index) => {
         :key="tag"
         @remove="removeTag(index)"
       >
-        {{ props.prefix }} {{ tag }}
+        {{ props.prefix }} {{ getTagLabel(tag) }}
       </cf-tag>
     </div>
     <small v-if="props.helper">{{ props.helper }}</small>
