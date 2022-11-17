@@ -30,6 +30,7 @@ const props = defineProps({
   border: 1px solid var(--cf-gray-7);
   border-radius: 0.3125rem;
   padding: 0 0.5rem;
+  width: fit-content;
   height: 1.9375rem;
   transition: border-color 120ms ease-out 0s;
   cursor: pointer;
