@@ -16,6 +16,7 @@ import Dropdown from './Dropdown/Dropdown.vue'
 import DropdownItem from './Dropdown/DropdownItem.vue'
 import DropZone from './DropZone/DropZone.vue'
 import Field from './Field/Field.vue'
+import FilePicker from './FilePicker/FilePicker.vue'
 import Progress from './Progress/Progress.vue'
 import Sidebar from './Sidebar/Sidebar.vue'
 import SidebarLink from './Sidebar/SidebarLink.vue'
@@ -43,6 +44,7 @@ export {
   DropdownItem as CfDropdownItem,
   DropZone as CfDropZone,
   Field as CfField,
+  FilePicker as CfFilePicker,
   Progress as CfProgress,
   Sidebar as CfSidebar,
   SidebarLink as CfSidebarLink,
