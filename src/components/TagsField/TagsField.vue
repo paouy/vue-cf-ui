@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import CfField from '../Field/Field.vue'
-import CfOutlinedButton from '../Button/OutlinedButton.vue';
+import CfOutlinedButton from '../Button/OutlinedButton.vue'
 import CfTag from '../Tag/Tag.vue'
 
 const emit = defineEmits(['update:modelValue'])
