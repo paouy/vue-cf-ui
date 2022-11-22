@@ -1,9 +1,11 @@
 <script setup>
 import { inject, ref } from 'vue'
+import CfDropdown from '../Dropdown/Dropdown.vue'
 
 const props = defineProps({
   data: Object,
-  expandable: Boolean
+  expandable: Boolean,
+  dropdown: Boolean
 })
 
 const columns = inject('columns', [])
@@ -15,14 +17,16 @@ const isExpanded = ref(false)
   <div class="cf-data-table-item">
     <div class="cf-data-table-item__drawer" v-if="isExpanded">
       <div class="cf-data-table-item__drawer__content">
-        <slot :item="props.data"></slot>
+        <slot name="drawer" :item="props.data"></slot>
       </div>
     </div>
+
     <div class="cf-data-table-item__content">
       <div v-for="column in columns" :key="column.key" :data-label="column.label">
         {{ data[column.key] }}
       </div>
     </div>
+
     <button
       class="cf-data-table-item__toggle"
       @click="isExpanded = !isExpanded"
@@ -30,6 +34,7 @@ const isExpanded = ref(false)
     >
       <span class="material-symbols-outlined"></span>
     </button>
+
     <router-link
       class="cf-data-table-item__toggle"
       :to="props.data.to"
@@ -37,6 +42,20 @@ const isExpanded = ref(false)
     >
       <span class="material-symbols-outlined"></span>
     </router-link>
+
+    <div class="cf-data-table-item__dropdown" v-if="props.dropdown">
+      <cf-dropdown>
+        <template v-slot:toggle>
+          <button>
+            <span class="material-symbols-outlined">more_vert</span>
+          </button>
+        </template>
+        <template v-slot:body>
+          <slot name="dropdown" :item="props.data"></slot>
+        </template>
+      </cf-dropdown>
+    </div>
+
     <div class="cf-data-table-item__backdrop"
       @click="isExpanded = false"
       v-if="props.expandable && isExpanded"
@@ -123,6 +142,16 @@ const isExpanded = ref(false)
       border-color: var(--cf-blue-4);
       height: 3rem;
       overflow: hidden;
+    }
+  }
+
+  &__dropdown {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+
+    button > span {
+      color: var(--cf-gray-3);
     }
   }
 

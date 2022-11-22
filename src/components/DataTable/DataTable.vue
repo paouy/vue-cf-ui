@@ -9,6 +9,7 @@ const props = defineProps({
   title: String,
   description: String,
   expandable: Boolean,
+  itemDropdown: Boolean,
   paginate: {
     type: Boolean,
     default: true
@@ -129,9 +130,13 @@ provide('columns', props.columns)
           :key="item._id || item[props.itemKey]"
           :data="item"
           :expandable="props.expandable"
+          :dropdown="props.itemDropdown"
         >
-          <template v-slot="props">
+          <template v-slot:drawer="props">
             <slot name="item-drawer" :item="props.item"></slot>
+          </template>
+          <template v-slot:dropdown="props">
+            <slot name="item-dropdown" :item="props.item"></slot>
           </template>
         </data-table-item>
       </div>
