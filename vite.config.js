@@ -10,7 +10,14 @@ export default defineConfig({
       fileName: (format) => `vue-cf-ui.${format}.js`
     },
     rollupOptions: {
-      external: ['vue'],
+      external: [
+        '@vueuse/core',
+        '@vueuse/integrations',
+        'dot-prop',
+        'fuse.js',
+        'vue',
+        'vue-router'
+      ],
       output: {
         globals: {
           vue: 'Vue'
@@ -18,5 +25,7 @@ export default defineConfig({
       }
     }
   },
-  plugins: [vue()]
+  plugins: [vue()],
+  root: './',
+  publicDir: 'public'
 })

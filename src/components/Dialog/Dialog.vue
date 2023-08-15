@@ -8,19 +8,17 @@ const props = defineProps({
   description: String
 })
 
-const dialog = ref(null)
+const dialog = ref()
 
 onMounted(() => {
   dialog.value.showModal()
 
-  dialog.value.addEventListener('close', () => {
-    emit('close')
-  })
+  dialog.value.addEventListener('close', () => emit('close'))
 })
 </script>
 
 <template>
-  <dialog class="cf-dialog" ref="dialog">
+  <dialog class="cf-dialog" ref="dialog" @keydown.esc.prevent>
     <div class="cf-dialog-header">
       <div class="cf-dialog__title">{{ props.title }}</div>
       <div v-if="props.description">{{ props.description }}</div>

@@ -59,7 +59,9 @@ provide('choice-list-required', props.required)
   height: fit-content;
 
   &__label {
+    color: var(--cf-gray-3);
     font-size: 0.875rem;
+    font-weight: 600;
     opacity: var(--opacity);
   }
 

@@ -1,11 +1,12 @@
 <script setup>
 const props = defineProps({
-  title: String
+  title: String,
+  simple: Boolean
 })
 </script>
 
 <template>
-  <div class="cf-action-card">
+  <div class="cf-action-card" v-if="!props.simple">
     <div class="cf-action-card__body">
       <div class="cf-action-card__title">
         {{ props.title }}
@@ -18,12 +19,32 @@ const props = defineProps({
       <slot name="action"></slot>
     </div>
   </div>
+
+  <div class="cf-simple-action-card" v-else>
+    <div>
+      <slot name="body"></slot>
+    </div>
+    <div>
+      <slot name="action"></slot>
+    </div>
+  </div>
 </template>
 
 <style lang="scss">
+.cf-simple-action-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem;
+  border: 1px solid var(--cf-gray-7);
+  border-radius: 0.3125rem;
+  margin: 1rem 0;
+}
+
 .cf-action-card {
   border: 1px solid var(--cf-gray-7);
   border-radius: 0.3125rem;
+  margin: 1rem 0;
   overflow: hidden;
 
   &__title {

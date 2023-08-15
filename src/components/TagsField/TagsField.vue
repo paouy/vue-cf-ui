@@ -1,8 +1,9 @@
 <script setup>
 import { ref, computed } from 'vue'
-import CfField from '../Field/Field.vue'
-import CfOutlinedButton from '../Button/OutlinedButton.vue'
-import CfTag from '../Tag/Tag.vue'
+import Input from '../FormControls/Input.vue'
+import Select from '../FormControls/Select.vue'
+import OutlinedButton from '../Button/OutlinedButton.vue'
+import Tag from '../Tag/Tag.vue'
 
 const emit = defineEmits(['update:modelValue'])
 
@@ -71,23 +72,29 @@ const removeTag = (index) => {
   <div class="cf-tags-field" :inert="props.disabled">
     <label v-if="props.label">{{ props.label }}</label>
     <div class="cf-tags-field__input">
-      <cf-field
+      <Input
         v-model="tag"
-        :type="props.options ? 'select' : 'text'"
         :prefix="props.prefix"
+        @keydown.enter="addTag"
+        @change="addTag"
+        required
+        v-if="!props.options && toggled"
+      />
+      <Select
+        v-model="tag"
         :options="allowedOptions"
         @keydown.enter="addTag"
         @change="addTag"
         required
-        v-if="toggled"
+        v-if="props.options && toggled"
       />
-      <cf-outlined-button
+      <OutlinedButton
         color="blue"
         @click="toggled = true"
-        v-else
+        v-if="!toggled"
       >
         {{ props.buttonText }}
-      </cf-outlined-button>
+      </OutlinedButton>
       <input
         class="cf-tags-field__input__faux"
         type="text"
@@ -95,13 +102,13 @@ const removeTag = (index) => {
       >
     </div>
     <div class="cf-tags-field__tags">
-      <cf-tag
+      <Tag
         v-for="(tag, index) in props.modelValue"
         :key="tag"
         @remove="removeTag(index)"
       >
         {{ props.prefix }} {{ props.options ? getTagLabel(tag) : tag }}
-      </cf-tag>
+      </Tag>
     </div>
     <small v-if="props.helper">{{ props.helper }}</small>
   </div>

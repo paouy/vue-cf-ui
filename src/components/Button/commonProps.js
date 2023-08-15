@@ -1,6 +1,6 @@
 const commonProps = {
   to: {
-    type: String,
+    type: [String, Object],
     default: null
   },
   type: {

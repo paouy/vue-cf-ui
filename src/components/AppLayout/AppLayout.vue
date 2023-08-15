@@ -4,7 +4,7 @@ import AppBar from '../AppBar/AppBar.vue'
 import Sidebar from '../Sidebar/Sidebar.vue'
 
 onMounted(() => {
-  document.body.dataset.layout = 'default'
+  document.body.dataset.layout = 'app'
 })
 </script>
 
@@ -26,14 +26,14 @@ onMounted(() => {
 </template>
 
 <style lang="scss">
-body[data-layout="default"] {
+body[data-layout="app"] {
   main {
     padding: 1rem;
   }
 }
 
 @media (min-width: 880px) {
-  body[data-layout="default"] {
+  body[data-layout="app"] {
     display: grid;
     grid-template-columns: max-content 1fr;
 

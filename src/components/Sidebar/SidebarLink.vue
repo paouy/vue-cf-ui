@@ -1,49 +1,69 @@
 <script setup>
+import { computed } from 'vue'
+import { RouterLink } from 'vue-router'
+
 const props = defineProps({
-  to: String,
+  to: [String, Object],
   href: String,
-  icon: String
+  icon: String,
+  parent: Boolean
+})
+
+const rootElement = computed(() => {
+  return props.to ? RouterLink : 'a'
 })
 </script>
 
 <template>
-  <router-link class="cf-sidebar-link" :to="props.to" v-if="to">
-    <div class="cf-sidebar-link__icon">
+  <component
+    class="cf-sidebar-link"
+    :is="rootElement"
+    :to="props.to"
+    :href="props.href"
+    v-if="!props.parent"
+  >
+    <figure v-if="props.icon">
       <span class="material-symbols-outlined">
-       {{ icon }}
+        {{ props.icon }}
       </span>
-    </div>
-    <div class="cf-sidebar-link__label">
+    </figure>
+    <span>
       <slot></slot>
-    </div>
-  </router-link>
+    </span>
+  </component>
 
-  <a class="cf-sidebar-link" :href="href" v-else>
-    <div class="cf-sidebar-link__icon">
-      <span class="material-symbols-outlined">
-       {{ icon }}
+  <div class="cf-sidebar-link-group" v-else>
+    <button class="cf-sidebar-link">
+      <figure>
+        <span class="material-symbols-outlined">
+          {{ props.icon }}
+        </span>
+      </figure>
+      <span>
+        <slot></slot>
       </span>
+    </button>
+    <div class="cf-sidebar-link-children">
+      <slot name="children"></slot>
     </div>
-    <div class="cf-sidebar-link__label">
-      <slot></slot>
-    </div>
-  </a>
+  </div>
 </template>
 
 <style lang="scss">
 .cf-sidebar-link {
   display: flex;
   align-items: center;
+  gap: 1.125rem;
+  padding-left: 1.125rem;
   border-radius: 50rem 0 0 50rem;
   border: 1px solid transparent;
   border-right: none;
   height: 2.625rem;
+  width: 100%;
+  cursor: pointer;
 
-  &__icon {
+  figure {
     display: grid;
-    place-content: center;
-    width: 3.4375rem;
-    height: 2.625rem;
 
     span {
       color: var(--cf-blue-4);
@@ -52,31 +72,57 @@ const props = defineProps({
     }
   }
 
-  &__label {
+  > span {
     color: var(--cf-blue-1);
     font-size: 0.875rem;
     line-height: 1.05rem;
+
+    &:only-child {
+      padding-left: 0.5rem;
+    }
   }
 
   &:hover {
     border-color: var(--cf-cyan-9);
     background: var(--cf-cyan-9);
 
-    .cf-sidebar-link__label {
+    > span {
       text-decoration: underline;
       text-decoration-style: dotted;
       text-underline-offset: 0.25rem;
     }
   }
 
-  &.active {
+  &.router-link-active {
     border-color: var(--cf-blue-8);
     background: var(--cf-blue-9);
 
-    .cf-sidebar-link__label {
+    > span {
       color: var(--cf-blue-2);
       font-weight: 700;
     }
+  }
+}
+
+.cf-sidebar-link-group {
+  &:focus-within {
+    .cf-sidebar-link-children {
+      display: block;
+    }
+  }
+}
+
+.cf-sidebar-link-children {
+  display: none;
+  margin-left: 1.875rem;
+
+  &:hover,
+  &:has(.router-link-active) {
+    display: block;
+  }
+
+  .cf-sidebar-link {
+    height: 1.75rem;
   }
 }
 
@@ -85,7 +131,20 @@ const props = defineProps({
     .cf-sidebar-link {
       border-radius: 0;
 
-      &__label {
+      > span {
+        display: none;
+      }
+    }
+
+    .cf-sidebar-link-group {
+      &:has(.router-link-active) {
+        > button {
+          border-color: var(--cf-blue-8);
+          background: var(--cf-blue-9);
+        }
+      }
+
+      .cf-sidebar-link-children {
         display: none;
       }
     }

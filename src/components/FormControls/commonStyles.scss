@@ -1,0 +1,87 @@
+.cf-form-control {
+  display: grid;
+  gap: 0.25rem;
+  width: 100%;
+
+  label {
+    font-size: 0.875rem;
+  }
+
+  &-widget {
+    display: flex;
+    align-items: center;
+    font-size: 0.875rem;
+    line-height: normal;
+    border: 1px solid var(--cf-gray-5);
+    border-radius: 0.3125rem;
+    background: #fff;
+    --padding: 0.5rem;
+
+    &:hover:has(:enabled),
+    &:focus-within {
+      border-color: var(--cf-blue-4);
+    }
+
+    &:focus-within {
+      outline: 2px solid var(--cf-blue-4);
+      outline-offset: 3px;
+    }
+
+    input,
+    textarea,
+    select {
+      flex-grow: 1;
+      padding: var(--padding);
+      height: 2.125rem;
+
+      &:focus {
+        outline: none;
+      }
+
+      &:disabled {
+        cursor: not-allowed;
+      }
+    }
+
+    input,
+    textarea {
+      cursor: text;
+    }
+
+    select {
+      padding-right: 2rem;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" height="12" viewBox="0 0 16 16" fill="%23595959"><path d="M14.15 4.492H1.85l-.354.854 6.15 6.15h.707l6.15-6.15-.353-.854z"></path></svg>') calc(100% - 0.625rem) center no-repeat;
+      cursor: pointer;
+    }
+
+    div {
+      &:first-child {
+        padding-left: var(--padding);
+      }
+
+      &:last-child {
+        padding-right: var(--padding);
+      }
+    }
+  }
+}
+
+form {
+  .cf-form-control {
+    label {
+      color: var(--cf-gray-3);
+      font-weight: 600;
+    }
+  }
+}
+
+[inert] .cf-form-control,
+[disabled] .cf-form-control {
+  &-widget {
+    input,
+    textarea,
+    select {
+      cursor: not-allowed;
+    }
+  }
+}
