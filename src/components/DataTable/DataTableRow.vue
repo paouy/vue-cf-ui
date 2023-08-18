@@ -4,7 +4,6 @@ import { getProperty } from 'dot-prop'
 import { RouterLink } from 'vue-router'
 
 const emit = defineEmits(['toggle', 'action'])
-
 const props = defineProps({
   data: Object,
   columns: Array,
@@ -12,12 +11,13 @@ const props = defineProps({
   includeCheckbox: Boolean
 })
 
-const hasMenu = computed(() => props.forceMenu || props.data.actions.length > 1)
-
-const actions = computed(() => props.data.actions.map(action => {
+const rowMeta = computed(() => props.data._)
+const rowData = computed(() => props.data.data)
+const hasMenu = computed(() => props.forceMenu || rowMeta.value.actions.length > 1)
+const actions = computed(() => rowMeta.value.actions.map(action => {
   const name = action.name || action
   const key = action.key || name.toUpperCase().replaceAll(' ', '_')
-  const invoke = () => emit('action', { key, data: props.data })
+  const invoke = () => emit('action', { key, data: rowData.value })
 
   let component = 'button'
 
@@ -38,11 +38,14 @@ const actions = computed(() => props.data.actions.map(action => {
     component
   }
 }))
-
 const primaryAction = computed(() => {
-  return hasMenu.value
-    ? { component: 'button', label: '•••', invoke: null }
-    : actions.value[0]
+  const menuToggle = {
+    component: 'button',
+    label: '•••',
+    invoke: null
+  }
+
+  return hasMenu.value ? menuToggle : actions.value[0]
 })
 </script>
 
@@ -51,20 +54,20 @@ const primaryAction = computed(() => {
     <td data-table-checkbox v-if="props.includeCheckbox">
       <input
         type="checkbox"
-        :value="props.data.id"
-        :checked="props.data.selected"
-        :disabled="!props.data.selectable"
+        :value="rowData.id"
+        :checked="rowMeta.isSelected"
+        :disabled="!rowMeta.isSelectable"
         @change="emit('toggle')"
       >
     </td>
 
     <slot>
       <td v-for="column in props.columns" :key="column.key">
-        {{ getProperty(props.data, column.key)?.toLocaleString() }}
+        {{ getProperty(rowData, column.key)?.toLocaleString() }}
       </td>
     </slot>
 
-    <td data-table-row-actions v-if="props.data.actions">
+    <td data-table-row-actions v-if="rowMeta.actions">
       <component
         :is="primaryAction.component"
         :to="primaryAction.to"

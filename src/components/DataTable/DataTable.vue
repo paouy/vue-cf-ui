@@ -40,7 +40,7 @@ const sortKey = ref(props.defaultSortKey)
 const sortOrder = ref('asc')
 const searchText = ref('')
 
-const data = computed(() => {
+const computedData = computed(() => {
   if (props.searchable) {
     const { results } = useFuse(searchText, props.data, {
       fuseOptions: {
@@ -57,9 +57,9 @@ const data = computed(() => {
   }
 })
 
-const computedRows = computed(() => {
-  return data.value
-    .map(result => result.item || result)
+const rows = computed(() => {
+  return computedData.value
+    .map(data => data.item || data)
     .sort((a, b) => {
       const aValue = getProperty(a, sortKey.value)
       const bValue = getProperty(b, sortKey.value)
@@ -74,29 +74,28 @@ const computedRows = computed(() => {
         ? aValue - bValue
         : bValue - aValue
     })
-    .map((item, index) => {
-      const selectable = item.selectable ?? true
-      const selected = props.selection.includes(item.id)
-      const actions = item.actions ?? props.rowActions
-
+    .map(({ _, ...data }, index) => {
       return {
-        ...item,
-        index,
-        selectable,
-        selected,
-        actions
+        _: {
+          isDisabled: _.disabled,
+          isSelectable: _.seletable ?? true,
+          isSelected: props.selection.includes(data.id),
+          actions: _.actions ?? props.rowActions,
+          index
+        },
+        data
       }
     })
 })
 
 const isTableSelectable = computed(() => {
-  return computedRows.value.some(item => item.selectable)
+  return rows.value.some(row => row._.isSelectable)
 })
 
 const isTableSelected = computed({
   get: () => {
-    const selectableRows = computedRows.value
-      .filter(item => item.selectable)
+    const selectableRows = rows.value
+      .filter(row => row._.isSelectable)
       .length
 
     return selectableRows >= 1 && (selectableRows === props.selection.length)
@@ -105,24 +104,24 @@ const isTableSelected = computed({
     let selection = []
 
     if (value === true) {
-      selection = computedRows.value
-        .filter(item => !item.disabled && item.selectable)
-        .map(item => item.id)
+      selection = rows.value
+        .filter(row => !row._.isDisabled && row._.isSelectable)
+        .map(row => row.data.id)
     }
     
     emit('update:selection', selection)
   }
 })
 
-const onRowToggle = (itemId) => {
-  const selection = props.selection.includes(itemId)
-    ? props.selection.slice().filter(id => id !== itemId)
-    : props.selection.concat(itemId)
+const onToggleRow = (rowDataId) => {
+  const selection = props.selection.includes(rowDataId)
+    ? props.selection.slice().filter(id => rowDataId !== id)
+    : props.selection.concat(rowDataId)
 
   emit('update:selection', selection)
 }
 
-const onColumnSort = (key) => {
+const onSortColumn = (key) => {
   if (sortKey.value === key) {
     sortOrder.value = sortOrder.value === 'asc' ? 'desc' : 'asc'
   } else {
@@ -159,7 +158,7 @@ const onColumnSort = (key) => {
             >
           </th>
           <th v-for="column in props.columns" :key="column.key">
-            <button @click="onColumnSort(column.key)" v-if="props.sortable">
+            <button @click="onSortColumn(column.key)" v-if="props.sortable">
               {{ column.label }}
             </button>
             <div v-else>
@@ -171,16 +170,16 @@ const onColumnSort = (key) => {
       </thead>
       <tbody>
         <DataTableRow
-          v-for="data in computedRows"
-          :key="data.id"
-          :data="data"
+          v-for="row in rows"
+          :key="row.data.id"
+          :data="row"
           :columns="props.columns"
           :include-checkbox="props.selectable"
           :force-menu="props.forceRowMenu"
-          @toggle="onRowToggle(data.id)"
+          @toggle="onToggleRow(row.data.id)"
           @action="$event => emit('row-action', $event)"
         >
-          <slot name="row" :data="data"></slot>
+          <slot name="row" :data="row.data"></slot>
         </DataTableRow>
       </tbody>
     </table>
