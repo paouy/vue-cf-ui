@@ -4,7 +4,13 @@
   width: 100%;
 
   label {
+    display: flex;
     font-size: 0.875rem;
+
+    button {
+      color: var(--cf-blue-4);
+      margin-left: auto;
+    }
   }
 
   &-widget {

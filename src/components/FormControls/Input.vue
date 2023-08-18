@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
 import commonProps from './commonProps.js'
 
 const emit = defineEmits(['update:modelValue'])
@@ -21,6 +21,16 @@ const props = defineProps({
   ...commonProps
 })
 
+const isText = ref(false)
+
+const computedType = computed(() => {
+  if (props.type.toLowerCase() === 'password') {
+    return isText.value ? 'text' : 'password'
+  } else {
+    return props.type
+  }
+})
+
 const computedValue = computed({
   get: () => props.modelValue || props.value,
   set: (value) => emit('update:modelValue', value)
@@ -29,14 +39,19 @@ const computedValue = computed({
 
 <template>
   <div class="cf-form-control">
-    <label v-if="props.label">{{ props.label }}</label>
+    <label v-if="props.label">
+      {{ props.label }}
+      <button @click="isText = !isText">
+        {{ isText ? 'Hide' : 'Show' }}
+      </button>
+    </label>
     <div class="cf-form-control-widget">
       <div v-if="props.prefix">{{ props.prefix }}</div>
       <input
         v-model="computedValue"
         :disabled="props.disabled"
         :required="props.required"
-        :type="props.type"
+        :type="computedType"
         :placeholder="props.placeholder"
         :list="props.list"
         :step="props.step"
