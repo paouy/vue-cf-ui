@@ -49,7 +49,7 @@ const computedValue = computed({
   align-items: center;
   gap: 0.75rem;
   width: fit-content;
-  height: 2.125rem;
+  height: 2.25rem;
 
   &__box {
     flex-shrink: 0;
