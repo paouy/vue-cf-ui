@@ -3,7 +3,7 @@ import { computed } from 'vue'
 
 const props = defineProps({
   icon: String,
-  to: String,
+  to: [Object, String],
   large: Boolean
 })
 
