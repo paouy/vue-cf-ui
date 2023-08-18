@@ -15,6 +15,8 @@ const props = defineProps({
   step: [Number, String],
   max: [Number, String],
   min: [Number, String],
+  maxlength: [Number, String],
+  minlength: [Number, String],
   pattern: String,
   ...commonProps
 })
@@ -40,6 +42,8 @@ const computedValue = computed({
         :step="props.step"
         :max="props.max"
         :min="props.min"
+        :maxlength="props.maxlength"
+        :minlength="props.minlength"
         :pattern="props.pattern"
         :title="props.title"
         :autofocus="props.autofocus"
