@@ -26,6 +26,7 @@ const computedValue = computed({
         v-model="computedValue"
         :disabled="props.disabled"
         :required="props.required"
+        :title="props.title"
         :autofocus="props.autofocus"
       >
         <option :value="null" v-if="!props.required && props.options.length"></option>

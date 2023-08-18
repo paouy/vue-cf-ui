@@ -15,6 +15,7 @@ const props = defineProps({
   step: [Number, String],
   max: [Number, String],
   min: [Number, String],
+  pattern: String,
   ...commonProps
 })
 
@@ -39,6 +40,8 @@ const computedValue = computed({
         :step="props.step"
         :max="props.max"
         :min="props.min"
+        :pattern="props.pattern"
+        :title="props.title"
         :autofocus="props.autofocus"
       >
       <div v-if="props.suffix">{{ props.suffix }}</div>

@@ -5,6 +5,7 @@ const commonProps = {
   disabled: Boolean,
   required: Boolean,
   helper: String,
+  title: String,
   autofocus: Boolean
 }
 

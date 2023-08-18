@@ -1,24 +1,31 @@
 <script setup>
-import {
-  CfDefaultLayout,
-  CfSidebarLink,
-  CfAppView
-} from './components'
+import { CfAppLayout, CfAppBarLink, CfDropdownItem, CfSidebarLink, CfAppView } from './components/index.js'
 </script>
 
 <template>
-  <cf-default-layout>
-    <template v-slot:brand>
-      Vue Cloudflare UI
+  <CfAppLayout>
+    <template #brand>
+      <b>Vue CF UI</b>
     </template>
-    <template v-slot:sidebar>
-      <cf-sidebar-link href="#" icon="smart_toy" class="active">Playground</cf-sidebar-link>
-      <cf-sidebar-link href="https://github.com/paouy/vue-cf-ui" icon="code">Repository</cf-sidebar-link>
+    <template #navigation>
+      <CfAppBarLink dropdown>
+        <template #default>
+          Paolo Uy
+        </template>
+        <template #dropdown>
+          <CfDropdownItem large>Manage Account</CfDropdownItem>
+          <CfDropdownItem large>Log Out</CfDropdownItem>
+        </template>
+      </CfAppBarLink>
     </template>
-    <template v-slot:main>
-      <cf-app-view>
-        Hello world!
-      </cf-app-view>
+    <template #sidebar>
+      <CfSidebarLink href="#" icon="smart_toy" class="router-link-active">Playground</CfSidebarLink>
+      <CfSidebarLink href="https://github.com/paouy/vue-cf-ui" icon="code">Repository</CfSidebarLink>
     </template>
-  </cf-default-layout>
+    <template #main>
+      <CfAppView>
+        Hello
+      </CfAppView>
+    </template>
+  </CfAppLayout>
 </template>
