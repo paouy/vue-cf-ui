@@ -416,7 +416,6 @@ const onSortColumn = (key) => {
     &-action {
       grid-column: 2 !important;
       flex-direction: row-reverse;
-      padding-bottom: 1px;
       align-self: flex-end;
       margin: 0 0 0 0.5rem;
     }
