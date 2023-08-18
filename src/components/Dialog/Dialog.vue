@@ -5,20 +5,30 @@ const emit = defineEmits(['close'])
 
 const props = defineProps({
   title: String,
-  description: String
+  description: String,
+  persist: {
+    type: Boolean,
+    default: false
+  },
+  persistent: {
+    type: Boolean,
+    default: false
+  }
 })
 
 const dialog = ref()
 
-onMounted(() => {
-  dialog.value.showModal()
+const close = () => {
+  if (!props.persist && !props.persistent) {
+    emit('close')
+  }
+}
 
-  dialog.value.addEventListener('close', () => emit('close'))
-})
+onMounted(() => dialog.value.showModal())
 </script>
 
 <template>
-  <dialog class="cf-dialog" ref="dialog" @keydown.esc.prevent>
+  <dialog class="cf-dialog" ref="dialog" @keydown.esc.prevent="close">
     <div class="cf-dialog-header">
       <div class="cf-dialog__title">{{ props.title }}</div>
       <div v-if="props.description">{{ props.description }}</div>
@@ -29,7 +39,7 @@ onMounted(() => {
     <div class="cf-dialog-footer">
       <slot name="footer"></slot>
     </div>
-    <button class="cf-dialog-close" @click="emit('close')">
+    <button class="cf-dialog-close" :disabled="props.persist" @click="close" v-if="!props.persistent">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
         <path d="M14.34 13.605L8.696 8.023l5.582-5.645-.71-.703-5.583 5.644L2.34 1.737l-.703.711L7.282 8.03 1.7 13.675l.71.703 5.583-5.645 5.644 5.583.703-.711z"></path>
       </svg>
@@ -56,6 +66,10 @@ onMounted(() => {
     position: absolute;
     top: 0.75rem;
     right: 0.75rem;
+
+    &:disabled {
+      opacity: 0.5;
+    }
   }
 
   &-header {
