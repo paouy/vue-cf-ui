@@ -77,7 +77,7 @@ const rows = computed(() => {
     .map(({ _, ...data }, index) => {
       return {
         _: {
-          isDisabled: _.disabled,
+          isDisabled: _.disabled ?? false,
           isSelectable: _.seletable ?? true,
           isSelected: props.selection.includes(data.id),
           actions: _.actions ?? props.rowActions,
