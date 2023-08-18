@@ -43,6 +43,7 @@ const computedValue = computed({
       {{ props.label }}
       <button
         type="button"
+        tabindex="-1"
         @click="isText = !isText"
         v-if="props.type.toLowerCase() === 'password'"
       >
