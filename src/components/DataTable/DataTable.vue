@@ -74,14 +74,13 @@ const rows = computed(() => {
         ? aValue - bValue
         : bValue - aValue
     })
-    .map(({ _, ...data }, index) => {
+    .map(({ _, ...data }) => {
       return {
         _: {
-          isDisabled: _.disabled ?? false,
-          isSelectable: _.seletable ?? true,
+          isDisabled: _?.disabled ?? false,
+          isSelectable: _?.seletable ?? true,
           isSelected: props.selection.includes(data.id),
-          actions: _.actions ?? props.rowActions,
-          index
+          actions: _?.actions ?? props.rowActions
         },
         data
       }
