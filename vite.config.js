@@ -4,6 +4,7 @@ import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
   build: {
+    outDir: './lib',
     lib: {
       name: 'vue-cf-ui',
       entry: fileURLToPath(new URL('./src/components/index.js', import.meta.url)),
