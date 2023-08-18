@@ -41,7 +41,11 @@ const computedValue = computed({
   <div class="cf-form-control">
     <label v-if="props.label">
       {{ props.label }}
-      <button @click="isText = !isText">
+      <button
+        type="button"
+        @click="isText = !isText"
+        v-if="props.type.toLowerCase() === 'password'"
+      >
         {{ isText ? 'Hide' : 'Show' }}
       </button>
     </label>
