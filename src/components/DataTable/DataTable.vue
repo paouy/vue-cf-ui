@@ -237,8 +237,7 @@ const onSortColumn = (key) => {
   tbody [data-table-row-actions] {
     position: relative;
 
-    > button,
-    > a {
+    > button {
       &:only-child {
         float: right;
         color: var(--cf-blue-4);
@@ -275,17 +274,15 @@ const onSortColumn = (key) => {
       z-index: 1;
       overflow: hidden;
 
-      button,
-      a {
-        padding: 0.5rem 1rem;
-        cursor: pointer;
+      > button {
+        > * {
+          display: flex;
+          padding: 0.5rem 1rem;
+          cursor: pointer;
 
-        &:hover {
-          background: var(--cf-gray-9);
-        }
-
-        &:empty {
-          display: none;
+          &:hover {
+            background: var(--cf-gray-9);
+          }
         }
       }
     }

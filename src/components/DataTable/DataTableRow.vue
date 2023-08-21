@@ -19,7 +19,7 @@ const actions = computed(() => rowMeta.value.actions.map(action => {
   const key = action.key || name.toUpperCase().replaceAll(' ', '_')
   const invoke = () => emit('action', { key, data: rowData.value })
 
-  let component = 'button'
+  let component = 'span'
 
   if (action.to) {
     component = RouterLink
@@ -40,7 +40,7 @@ const actions = computed(() => rowMeta.value.actions.map(action => {
 }))
 const primaryAction = computed(() => {
   const menuToggle = {
-    component: 'button',
+    component: 'span',
     label: '•••',
     invoke: null
   }
@@ -68,25 +68,27 @@ const primaryAction = computed(() => {
     </slot>
 
     <td data-table-row-actions v-if="rowMeta.actions">
-      <component
-        :is="primaryAction.component"
-        :to="primaryAction.to"
-        :href="primaryAction.href"
-        @click="primaryAction.invoke"
-      >
-        {{ primaryAction.label }}
-      </component>
-      <div v-if="hasMenu">
+      <button>
         <component
-          v-for="action in actions"
-          :key="action.key"
-          :is="action.component"
-          :to="action.to"
-          :href="action.href"
-          @click="action.invoke"
+          :is="primaryAction.component"
+          :to="primaryAction.to"
+          :href="primaryAction.href"
+          @click="primaryAction.invoke"
         >
-          {{ action.label }}
+          {{ primaryAction.label }}
         </component>
+      </button>
+      <div v-if="hasMenu">
+        <button v-for="action in actions" :key="action.key">
+          <component
+            :is="action.component"
+            :to="action.to"
+            :href="action.href"
+            @click="action.invoke"
+          >
+            {{ action.label }}
+          </component>
+        </button>
       </div>
     </td>
   </tr>
