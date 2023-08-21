@@ -31,6 +31,7 @@ const rootClasses = computed(() => ({
 <style lang="scss">
 .cf-action-card {
   display: grid;
+  align-items: center;
   border: 1px solid var(--cf-gray-7);
   border-radius: 0.3125rem;
   margin: 1rem 0;
