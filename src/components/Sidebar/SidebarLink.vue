@@ -138,7 +138,7 @@ const rootElement = computed(() => {
 }
 
 @media (min-width: 880px) {
-  .cf-sidebar--toggled {
+  .cf-sidebar--toggled:not(:hover) {
     .cf-sidebar-link {
       border-radius: 0;
 

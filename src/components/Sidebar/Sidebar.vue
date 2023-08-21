@@ -13,21 +13,21 @@ const rootClasses = computed(() => {
 
 <template>
   <aside :class="rootClasses">
-    <nav class="cf-sidebar-nav">
-      <slot></slot>
-      <hr>
-    </nav>
-    <button class="cf-sidebar-toggle" @click="isToggled = !isToggled">
-      <span class="material-symbols-outlined"></span>
-      <span>Collapse sidebar</span>
-    </button>
+    <div>
+      <nav class="cf-sidebar-nav">
+        <slot></slot>
+        <hr>
+      </nav>
+      <button class="cf-sidebar-toggle" @click="isToggled = !isToggled">
+        <span class="material-symbols-outlined"></span>
+        <span></span>
+      </button>
+    </div>
   </aside>
 </template>
 
 <style lang="scss">
 .cf-sidebar {
-  display: flex;
-  flex-direction: column;
   background: #fff;
   width: 0;
   height: calc(100vh - 3.875rem);
@@ -37,6 +37,12 @@ const rootClasses = computed(() => {
   z-index: var(--z-index-sidebar);
   overflow: hidden;
   --toggle-icon: '\e5d2';
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
 
   &-nav {
     display: grid;
@@ -106,11 +112,13 @@ const rootClasses = computed(() => {
 
 @media (min-width: 880px) {
   .cf-sidebar {
-    display: flex;
-    border-right: 1px solid var(--cf-gray-8);
     width: 16.25rem;
     position: sticky;
     --toggle-icon: '\eac3';
+
+    > div {
+      border-right: 1px solid var(--cf-gray-8);
+    }
 
     &-toggle {
       display: flex;
@@ -135,6 +143,10 @@ const rootClasses = computed(() => {
         display: inline;
         color: #000;
         font-size: 0.875rem;
+
+        &::before {
+          content: 'Collapse sidebar'
+        }
       }
     }
 
@@ -153,6 +165,29 @@ const rootClasses = computed(() => {
       .cf-sidebar-toggle {
         :last-child {
           display: none;
+        }
+      }
+
+      &:hover {
+        overflow: visible;
+
+        > div {
+          background: #fff;
+          width: 16.25rem;
+        }
+
+        .cf-sidebar-nav {
+          padding-left: 0.25rem;
+        }
+
+        .cf-sidebar-toggle {
+          :last-child {
+            display: inline;
+            
+            &::before {
+              content: 'Expand sidebar'
+            }
+          }
         }
       }
     }
