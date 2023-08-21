@@ -1,17 +1,24 @@
 <script setup>
+import { computed } from 'vue'
+
 const props = defineProps({
   title: String,
   simple: Boolean
 })
+
+const rootClasses = computed(() => ({
+  'cf-action-card': true,
+  'cf-action-card--simple': props.simple
+}))
 </script>
 
 <template>
-  <div class="cf-action-card" v-if="!props.simple">
-    <div class="cf-action-card__body">
-      <div class="cf-action-card__title">
+  <div :class="rootClasses">
+    <div>
+      <h5 v-if="props.title">
         {{ props.title }}
-      </div>
-      <div class="cf-action-card__body__slot">
+      </h5>
+      <div class="cf-action-card__body">
         <slot name="body"></slot>
       </div>
     </div>
@@ -19,62 +26,80 @@ const props = defineProps({
       <slot name="action"></slot>
     </div>
   </div>
-
-  <div class="cf-simple-action-card" v-else>
-    <div>
-      <slot name="body"></slot>
-    </div>
-    <div>
-      <slot name="action"></slot>
-    </div>
-  </div>
 </template>
 
 <style lang="scss">
-.cf-simple-action-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 2rem;
-  border: 1px solid var(--cf-gray-7);
-  border-radius: 0.3125rem;
-  margin: 1rem 0;
-}
-
 .cf-action-card {
+  display: grid;
   border: 1px solid var(--cf-gray-7);
   border-radius: 0.3125rem;
   margin: 1rem 0;
-  overflow: hidden;
+  --padding: 1rem;
 
-  &__title {
+  h5 {
     font-size: 1.25rem;
     font-weight: 600;
+    padding: var(--padding);
+    padding-bottom: 0;
     margin-bottom: 0.5rem;
   }
 
   &__body {
-    padding: 1rem;
-    border-bottom: 1px solid var(--cf-gray-7);
+    padding: var(--padding);
+
+    &:not(:only-child) {
+      padding-top: 0;
+      border-bottom: 1px solid var(--cf-gray-7);
+    }
   }
 
   &__action {
-    display: grid;
-    place-content: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 2rem;
     background: var(--cf-gray-9);
+  }
+
+  &--simple {
+    .cf-action-card__body {
+      &:only-child {
+        padding-bottom: 0;
+      }
+
+      &:not(:only-child) {
+        border-bottom: none;
+      }
+    }
+
+    .cf-action-card__action {
+      border-left: none;
+      background: none;
+    }
   }
 }
 
 @media (min-width: 755px) {
   .cf-action-card {
-    display: grid;
     grid-template-columns: 7fr 3fr;
+    --padding: 2rem;
 
-    &__body {
-      padding: 2rem;
-      border-right: 1px solid var(--cf-gray-7);
+    &__body:not(:only-child) {
       border-bottom: none;
+    }
+
+    &__action {
+      border-left: 1px solid var(--cf-gray-7);
+    }
+
+    &--simple {
+      .cf-action-card__body:only-child {
+        padding-bottom: var(--padding);
+      }
+
+      .cf-action-card__action {
+        justify-content: flex-end;
+      }
     }
   }
 }

@@ -191,43 +191,6 @@ const onSortColumn = (key) => {
   border-radius: 0.3125rem;
   margin: 1rem 0 2.5rem 0;
 
-  header {
-    display: grid;
-    margin: 1rem;
-
-    > :first-child {
-      margin-top: 0;
-    }
-  }
-
-  &-title {
-    order: 1;
-    font-size: 1.25rem;
-    font-weight: 600;
-  }
-
-  &-description {
-    order: 2;
-    margin-top: 0.5rem;
-  }
-
-  &-search {
-    order: 3;
-    margin-top: 1rem;
-  }
-
-  &-action {
-    order: 4;
-    display: flex;
-    flex-direction: column-reverse;
-    gap: 0.5rem;
-    margin-top: 0.5rem;
-
-    > * {
-      width: 100%;
-    }
-  }
-
   table {
     table-layout: fixed;
     width: 100%;
@@ -327,8 +290,7 @@ const onSortColumn = (key) => {
       }
     }
 
-    &:focus-within,
-    &:has(a:hover) {
+    &:focus-within {
       > button:not(:only-child) {
         background: var(--cf-gray-9);
       }
@@ -380,44 +342,6 @@ const onSortColumn = (key) => {
           cursor: default !important;
         }
       }
-    }
-  }
-}
-
-@media (min-width: 755px) {
-  .cf-data-table {
-    header {
-      grid-template-columns: 1fr fit-content(100%);
-
-      > * {
-        grid-column: 1;
-      }
-    }
-
-    &-description {
-      &:first-child {
-        ~ :last-child:nth-child(3) {
-          align-self: flex-end;
-        }
-      }
-
-      ~ :last-child:nth-child(3) {
-        grid-row: -1 / span 2;
-        align-self: center;
-      }
-    }
-
-    &-search {
-      &:last-child:nth-child(3) {
-        grid-row: 3;
-      }
-    }
-
-    &-action {
-      grid-column: 2 !important;
-      flex-direction: row-reverse;
-      align-self: flex-end;
-      margin: 0 0 0 0.5rem;
     }
   }
 }

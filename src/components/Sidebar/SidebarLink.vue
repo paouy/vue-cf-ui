@@ -1,12 +1,22 @@
 <script setup>
 import { computed } from 'vue'
-import { RouterLink } from 'vue-router'
+import { useRoute, RouterLink } from 'vue-router'
 
 const props = defineProps({
   to: [String, Object],
   href: String,
   icon: String,
-  parent: Boolean
+  parent: String
+})
+
+const isActive = computed(() => {
+  if (props.parent) {
+    const route = useRoute()
+
+    return route.path.includes(props.parent)
+  } else {
+    return null
+  }
 })
 
 const rootElement = computed(() => {
@@ -15,24 +25,25 @@ const rootElement = computed(() => {
 </script>
 
 <template>
-  <component
-    class="cf-sidebar-link"
-    :is="rootElement"
-    :to="props.to"
-    :href="props.href"
-    v-if="!props.parent"
-  >
-    <figure v-if="props.icon">
-      <span class="material-symbols-outlined">
-        {{ props.icon }}
+  <button v-if="!props.parent">
+    <component
+      class="cf-sidebar-link"
+      :is="rootElement"
+      :to="props.to"
+      :href="props.href"
+    >
+      <figure v-if="props.icon">
+        <span class="material-symbols-outlined">
+          {{ props.icon }}
+        </span>
+      </figure>
+      <span>
+        <slot></slot>
       </span>
-    </figure>
-    <span>
-      <slot></slot>
-    </span>
-  </component>
+    </component>
+  </button>
 
-  <div class="cf-sidebar-link-group" v-else>
+  <div :class="['cf-sidebar-link-group', { hasRouterLinkActive: isActive }]" v-else>
     <button class="cf-sidebar-link">
       <figure>
         <span class="material-symbols-outlined">
@@ -105,7 +116,8 @@ const rootElement = computed(() => {
 }
 
 .cf-sidebar-link-group {
-  &:focus-within {
+  &:focus-within,
+  &.hasRouterLinkActive {
     .cf-sidebar-link-children {
       display: block;
     }
@@ -116,13 +128,12 @@ const rootElement = computed(() => {
   display: none;
   margin-left: 1.875rem;
 
-  &:hover,
-  &:has(.router-link-active) {
-    display: block;
-  }
+  > button {
+    width: 100%;
 
-  .cf-sidebar-link {
-    height: 1.75rem;
+    .cf-sidebar-link {
+      height: 1.75rem;
+    }
   }
 }
 
@@ -137,7 +148,7 @@ const rootElement = computed(() => {
     }
 
     .cf-sidebar-link-group {
-      &:has(.router-link-active) {
+      &.hasRouterLinkActive {
         > button {
           border-color: var(--cf-blue-8);
           background: var(--cf-blue-9);
