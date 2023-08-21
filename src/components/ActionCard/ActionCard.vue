@@ -60,6 +60,7 @@ const rootClasses = computed(() => ({
     align-items: center;
     padding: 2rem;
     background: var(--cf-gray-9);
+    height: 100%;
   }
 
   &--simple {
