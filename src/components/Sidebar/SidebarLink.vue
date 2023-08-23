@@ -76,6 +76,7 @@ const linkClasses = computed(() => ({
       display: block;
       content: '';
       background: var(--icon) center;
+      background-size: contain;
       height: 1.25rem;
       width: 1.25rem;
     }
