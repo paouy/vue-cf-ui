@@ -6,14 +6,17 @@ const props = defineProps({
   to: [String, Object],
   href: String,
   label: String,
-  icon: Boolean,
-  parent: String
+  icon: {
+    type: Boolean,
+    default: true
+  },
+  path: String
 })
 
 const isActive = computed(() => {
-  if (props.parent) {
+  if (props.path) {
     const route = useRoute()
-    return route.path.includes(props.parent)
+    return route.path.includes(props.path)
   } else {
     return null
   }
@@ -28,7 +31,7 @@ const linkClasses = computed(() => ({
 </script>
 
 <template>
-  <button v-if="!props.parent">
+  <button v-if="!props.path">
     <component
       :class="linkClasses"
       :is="rootElement"
