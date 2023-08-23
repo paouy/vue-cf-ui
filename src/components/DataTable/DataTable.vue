@@ -141,47 +141,49 @@ const onSortColumn = (key) => {
     >
       <slot name="header"></slot>
     </DataTableHeader>
-    <table>
-      <colgroup>
-        <col v-if="props.selectable" style="--w: 3rem">
-        <col v-for="c in props.columns" :key="c.key" :style="{ '--w': c.width }">
-        <col v-if="props.rowActions" style="--w: 4rem">
-      </colgroup>
-      <thead>
-        <tr>
-          <th data-table-checkbox v-if="props.selectable">
-            <input
-              v-model="isTableSelected"
-              type="checkbox"
-              :disabled="!isTableSelectable"
-            >
-          </th>
-          <th v-for="column in props.columns" :key="column.key">
-            <button @click="onSortColumn(column.key)" v-if="props.sortable">
-              {{ column.label }}
-            </button>
-            <div v-else>
-              {{ column.label }}
-            </div>
-          </th>
-          <th v-if="props.rowActions"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <DataTableRow
-          v-for="row in rows"
-          :key="row.data.id"
-          :data="row"
-          :columns="props.columns"
-          :include-checkbox="props.selectable"
-          :force-menu="props.forceRowMenu"
-          @toggle="onToggleRow(row.data.id)"
-          @action="$event => emit('row-action', $event)"
-        >
-          <slot name="row" :data="row.data"></slot>
-        </DataTableRow>
-      </tbody>
-    </table>
+    <div class="cf-data-table-container">
+      <table>
+        <colgroup>
+          <col v-if="props.selectable" style="--w: 3rem">
+          <col v-for="c in props.columns" :key="c.key" :style="{ '--w': c.width }">
+          <col v-if="props.rowActions" style="--w: 4rem">
+        </colgroup>
+        <thead>
+          <tr>
+            <th data-table-checkbox v-if="props.selectable">
+              <input
+                v-model="isTableSelected"
+                type="checkbox"
+                :disabled="!isTableSelectable"
+              >
+            </th>
+            <th v-for="column in props.columns" :key="column.key">
+              <button @click="onSortColumn(column.key)" v-if="props.sortable">
+                {{ column.label }}
+              </button>
+              <div v-else>
+                {{ column.label }}
+              </div>
+            </th>
+            <th v-if="props.rowActions"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <DataTableRow
+            v-for="row in rows"
+            :key="row.data.id"
+            :data="row"
+            :columns="props.columns"
+            :include-checkbox="props.selectable"
+            :force-menu="props.forceRowMenu"
+            @toggle="onToggleRow(row.data.id)"
+            @action="$event => emit('row-action', $event)"
+          >
+            <slot name="row" :data="row.data"></slot>
+          </DataTableRow>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -191,13 +193,13 @@ const onSortColumn = (key) => {
   border-radius: 0.3125rem;
   margin: 1rem 0 2.5rem 0;
 
-  table {
-    table-layout: fixed;
-    width: 100%;
+  &-container {
+    overflow-x: auto;
   }
 
-  col {
-    width: var(--w);
+  table {
+    white-space: nowrap;
+    width: 100%;
   }
 
   thead {
@@ -342,4 +344,16 @@ const onSortColumn = (key) => {
     }
   }
 }
+
+@media (min-width: 880px) {
+  .cf-data-table {
+    table {
+      table-layout: fixed;
+    }
+
+    col {
+      width: var(--w);
+    }
+  }
+} 
 </style>
