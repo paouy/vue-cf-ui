@@ -238,6 +238,8 @@ const onSortColumn = (key) => {
   }
 
   tbody [data-table-row-actions] {
+    text-align: right;
+
     > button {
       &:only-child {
         float: right;
@@ -250,7 +252,7 @@ const onSortColumn = (key) => {
       }
 
       &:not(:only-child) {
-        display: block;
+        display: inline-block;
         text-align: center;
         border-radius: 0.3125rem;
         height: 1.5rem;

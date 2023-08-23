@@ -37,7 +37,6 @@ const linkClasses = computed(() => ({
       :is="rootElement"
       :to="props.to"
       :href="props.href"
-      tabindex="0"
     >
       <figure v-if="props.icon"></figure>
       <span>
@@ -157,6 +156,16 @@ const linkClasses = computed(() => ({
 
       .cf-sidebar-link-children {
         display: none;
+      }
+    }
+  }
+}
+
+@media (hover: none) {  
+  .cf-sidebar-link {
+    &:hover {
+      + .cf-sidebar-link-children {
+        display: block;
       }
     }
   }

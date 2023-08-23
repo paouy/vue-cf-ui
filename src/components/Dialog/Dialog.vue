@@ -64,7 +64,7 @@ onMounted(() => dialog.value.showModal())
     height: 1.5rem;
     width: 1.5rem;
     position: absolute;
-    top: 0.75rem;
+    top: 1.125rem;
     right: 0.75rem;
 
     &:disabled {
@@ -75,7 +75,7 @@ onMounted(() => dialog.value.showModal())
   &-header {
     display: grid;
     gap: 0.5rem;
-    padding: 1rem 3rem 0 2rem;
+    padding: 1rem 3rem 0 1rem;
   }
 
   &__title {
@@ -84,7 +84,7 @@ onMounted(() => dialog.value.showModal())
   }
 
   &-body {
-    padding: 1rem 2rem 2rem;
+    padding: 1rem 1rem 2rem;
   }
 
   &-footer {
@@ -95,12 +95,34 @@ onMounted(() => dialog.value.showModal())
     background: var(--cf-gray-8);
 
     &:not(:empty) {
-      padding: 1rem 2rem;
+      padding: 1rem;
     }
   }
 
   &::backdrop {
     background: rgb(0 0 0 / 0.7);
+  }
+}
+
+@media (min-width: 755px) {
+  .cf-dialog {
+    &-close {
+      top: 0.75rem;
+    }
+
+    &-header {
+      padding: 1rem 3rem 0 2rem;
+    }
+
+    &-body {
+      padding: 1rem 2rem 2rem;
+    }
+
+    &-footer {
+      &:not(:empty) {
+        padding: 1rem 2rem;
+      }
+    }
   }
 }
 </style>
