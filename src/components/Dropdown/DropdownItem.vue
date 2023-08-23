@@ -1,11 +1,14 @@
 <script setup>
 import { computed } from 'vue'
+import { RouterLink } from 'vue-router'
 
 const props = defineProps({
   icon: String,
   to: [Object, String],
   large: Boolean
 })
+
+const rootElement = computed(() => props.to ? RouterLink : 'a')
 
 const rootClasses = computed(() => {
   return {
@@ -16,35 +19,15 @@ const rootClasses = computed(() => {
 </script>
 
 <template>
-  <button :class="rootClasses" v-if="!to">
-    <div class="cf-dropdown-item__icon" v-if="icon">
-      <span class="material-symbols-outlined">
-       {{ icon }}
-      </span>
-    </div>
-    <div class="cf-dropdown-item__label">
+  <component :is="rootElement" :class="rootClasses">
       <slot></slot>
-    </div>
-  </button>
-
-  <router-link :class="rootClasses" :to="to" v-else>
-    <div class="cf-dropdown-item__icon" v-if="icon">
-      <span class="material-symbols-outlined">
-       {{ icon }}
-      </span>
-    </div>
-    <div class="cf-dropdown-item__label">
-      <slot></slot>
-    </div>
-  </router-link>
+  </component>
 </template>
 
 <style lang="scss">
 .cf-dropdown-item {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  white-space: nowrap;
   padding: 0.5rem 1rem;
   width: 100%;
   min-width: 11.625rem;
@@ -53,19 +36,6 @@ const rootClasses = computed(() => {
 
   &--large {
     height: 3.5rem;
-  }
-
-  &__icon {
-    height: 1.25rem;
-
-    span {
-      font-size: 1.25rem;
-      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 20;
-    }
-  }
-
-  &__label {
-    line-height: 1rem;
   }
 
   &:hover {

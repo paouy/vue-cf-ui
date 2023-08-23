@@ -5,53 +5,48 @@ import { useRoute, RouterLink } from 'vue-router'
 const props = defineProps({
   to: [String, Object],
   href: String,
-  icon: String,
+  label: String,
+  icon: Boolean,
   parent: String
 })
 
 const isActive = computed(() => {
   if (props.parent) {
     const route = useRoute()
-
     return route.path.includes(props.parent)
   } else {
     return null
   }
 })
 
-const rootElement = computed(() => {
-  return props.to ? RouterLink : 'a'
-})
+const rootElement = computed(() => props.to ? RouterLink : 'a')
+
+const linkClasses = computed(() => ({
+  'cf-sidebar-link': true,
+  [`cf-sidebar-link--${props.label.toLowerCase().replaceAll(' ', '-')}`]: props.icon
+}))
 </script>
 
 <template>
   <button v-if="!props.parent">
     <component
-      class="cf-sidebar-link"
+      :class="linkClasses"
       :is="rootElement"
       :to="props.to"
       :href="props.href"
     >
-      <figure v-if="props.icon">
-        <span class="material-symbols-outlined">
-          {{ props.icon }}
-        </span>
-      </figure>
+      <figure v-if="props.icon"></figure>
       <span>
-        <slot></slot>
+        {{ props.label }}
       </span>
     </component>
   </button>
 
   <div :class="['cf-sidebar-link-group', { hasRouterLinkActive: isActive }]" v-else>
-    <button class="cf-sidebar-link">
-      <figure>
-        <span class="material-symbols-outlined">
-          {{ props.icon }}
-        </span>
-      </figure>
+    <button :class="linkClasses">
+      <figure></figure>
       <span>
-        <slot></slot>
+        {{ props.label }}
       </span>
     </button>
     <div class="cf-sidebar-link-children">
@@ -74,16 +69,16 @@ const rootElement = computed(() => {
   cursor: pointer;
 
   figure {
-    display: grid;
-
-    span {
-      color: var(--cf-blue-4);
-      font-size: 1.25rem;
-      font-variation-settings: 'FILL' 0, 'wght' 350, 'GRAD' 0, 'opsz' 20;
+    &::before {
+      display: block;
+      content: '';
+      background: var(--icon) center;
+      height: 1.25rem;
+      width: 1.25rem;
     }
   }
 
-  > span {
+  span {
     color: var(--cf-blue-1);
     font-size: 0.875rem;
     line-height: 1.05rem;
@@ -108,7 +103,7 @@ const rootElement = computed(() => {
     border-color: var(--cf-blue-8);
     background: var(--cf-blue-9);
 
-    > span {
+    span {
       color: var(--cf-blue-2);
       font-weight: 700;
     }
@@ -142,7 +137,7 @@ const rootElement = computed(() => {
     .cf-sidebar-link {
       border-radius: 0;
 
-      > span {
+      span {
         display: none;
       }
     }

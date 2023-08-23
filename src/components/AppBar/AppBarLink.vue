@@ -33,26 +33,26 @@ const props = defineProps({
 <style lang="scss">
 .cf-app-bar-link {
   flex-shrink: 0;
+}
 
-  &__label {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-    font-size: 0.9375rem;
-    line-height: 1rem;
-    padding: 0 1rem;
-    background-color: #fff;
-    height: calc(3.875rem - 1px);
-    transition: background-color 0.15s ease 0s;
-    cursor: pointer;
+.cf-app-bar-link__label {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.9375rem;
+  line-height: 1rem;
+  padding: 0 1rem;
+  background-color: #fff;
+  height: calc(3.875rem - 1px);
+  transition: background-color 0.15s ease 0s;
+  cursor: pointer;
 
-    svg {
-      fill: var(--cf-gray-3);
-    }
+  svg {
+    fill: var(--cf-gray-3);
+  }
 
-    &:hover:not(:active) {
-      background-color: var(--cf-gray-9);
-    }
+  &:hover:not(:active) {
+    background-color: var(--cf-gray-9);
   }
 }
 

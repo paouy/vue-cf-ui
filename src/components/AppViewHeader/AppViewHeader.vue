@@ -15,7 +15,7 @@ const props = defineProps({
     <p v-if="props.surtitle">{{ props.surtitle }}</p>
     <h1 v-if="props.title">{{ props.title }}</h1>
     <p v-if="props.description">{{ props.description }}</p>
-    <div class="cf-app-view-header-actions" v-if="slots.actions">
+    <div class="cf-app-view-header__actions" v-if="slots.actions">
       <slot name="actions"></slot>
     </div>
   </header>
@@ -47,12 +47,12 @@ const props = defineProps({
       }
     }
   }
+}
 
-  &-actions {
-    display: flex;
-    gap: 1rem;
-    grid-row: 1;
-    grid-column: 2;
-  }
+.cf-app-view-header__actions {
+  display: flex;
+  gap: 1rem;
+  grid-row: 1;
+  grid-column: 2;
 }
 </style>
