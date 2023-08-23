@@ -192,6 +192,7 @@ const onSortColumn = (key) => {
   border: 1px solid var(--cf-gray-7);
   border-radius: 0.3125rem;
   margin: 1rem 0 2.5rem 0;
+  position: relative;
 
   &-container {
     overflow-x: auto;
@@ -237,8 +238,6 @@ const onSortColumn = (key) => {
   }
 
   tbody [data-table-row-actions] {
-    position: relative;
-
     > button {
       &:only-child {
         float: right;
