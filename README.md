@@ -17,20 +17,20 @@ npm install vue-cf-ui
 ```
 <script setup>
 import { ref } from 'vue'
-import { CfInput, CfButton } from 'vue-cf-ui
+import { CfInput, CfFilledButton } from 'vue-cf-ui
 
 const email = ref('')
 </script>
 
 <template>
   <form>
-    <cf-input
+    <CfInput
       v-model="email"
       label="Email address"
       type="email"
       required
     />
-    <cf-button type="submit">Register</cf-button>
+    <CfFilledButton type="submit">Register</CfFilledButton>
   </form>
 </template>
 
