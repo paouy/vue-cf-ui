@@ -74,6 +74,7 @@ const primaryAction = computed(() => {
           :to="primaryAction.to"
           :href="primaryAction.href"
           @click="primaryAction.invoke"
+          tabindex="0"
         >
           {{ primaryAction.label }}
         </component>
@@ -84,6 +85,7 @@ const primaryAction = computed(() => {
             :is="action.component"
             :to="action.to"
             :href="action.href"
+            tabindex="0"
             @click="action.invoke"
           >
             {{ action.label }}

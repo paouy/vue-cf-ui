@@ -37,6 +37,7 @@ const linkClasses = computed(() => ({
       :is="rootElement"
       :to="props.to"
       :href="props.href"
+      tabindex="0"
     >
       <figure v-if="props.icon"></figure>
       <span>
@@ -46,7 +47,7 @@ const linkClasses = computed(() => ({
   </button>
 
   <div :class="['cf-sidebar-link-group', { hasRouterLinkActive: isActive }]" v-else>
-    <button :class="linkClasses">
+    <button :class="linkClasses" tabindex="0">
       <figure></figure>
       <span>
         {{ props.label }}
