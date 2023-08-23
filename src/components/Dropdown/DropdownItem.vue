@@ -15,10 +15,15 @@ const rootClasses = computed(() => {
     'cf-dropdown-item--large': props.large
   }
 })
-const destination = computed(() => ({
-  route: !props.to.includes('https') ? props.to: null,
-  link: props.to.includes('https') ? props.to : null
-}))
+const destination = computed(() => {
+  if (typeof props.to !== 'string') {
+    return { route: props.to };
+  } else if (props.to?.includes('http')) {
+    return { link: props.to };
+  } else if (props.to) {
+    return { route: props.to };
+  }
+})
 </script>
 
 <template>
