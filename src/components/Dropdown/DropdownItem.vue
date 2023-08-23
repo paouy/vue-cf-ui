@@ -9,17 +9,25 @@ const props = defineProps({
 })
 
 const rootElement = computed(() => props.to ? RouterLink : 'a')
-
 const rootClasses = computed(() => {
   return {
     'cf-dropdown-item': true,
     'cf-dropdown-item--large': props.large
   }
 })
+const destination = computed(() => ({
+  route: !props.to.includes('https') ? props.to: null,
+  link: props.to.includes('https') ? props.to : null
+}))
 </script>
 
 <template>
-  <component :is="rootElement" :class="rootClasses">
+  <component
+    :is="rootElement"
+    :class="rootClasses"
+    :to="destination.route"
+    :href="destination.link"
+  >
       <slot></slot>
   </component>
 </template>
