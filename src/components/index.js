@@ -29,7 +29,7 @@ import SummaryList from './SummaryList/SummaryList.vue'
 import Switch from './Switch/Switch.vue'
 import TabNavigation from './TabNavigation/TabNavigation.vue'
 import Tag from './Tag/Tag.vue'
-import TagsField from './TagsField/TagsField.vue'
+import TagsInput from './TagsInput/TagsInput.vue'
 
 export {
   ActionCard as CfActionCard,
@@ -62,5 +62,5 @@ export {
   Switch as CfSwitch,
   TabNavigation as CfTabNavigation,
   Tag as CfTag,
-  TagsField as CfTagsField
+  TagsInput as CfTagsInput
 }
