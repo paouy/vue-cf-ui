@@ -69,9 +69,9 @@ const removeTag = (index) => {
 </script>
 
 <template>
-  <div class="cf-tags-field" :inert="props.disabled">
+  <div class="cf-tags-input" :inert="props.disabled">
     <label v-if="props.label">{{ props.label }}</label>
-    <div class="cf-tags-field__input">
+    <div class="cf-tags-input__widget">
       <Input
         v-model="tag"
         :prefix="props.prefix"
@@ -96,12 +96,12 @@ const removeTag = (index) => {
         {{ props.buttonText }}
       </OutlinedButton>
       <input
-        class="cf-tags-field__input__faux"
+        class="cf-tags-input__widget__faux"
         type="text"
         :required="props.required && !props.modelValue.length"
       >
     </div>
-    <div class="cf-tags-field__tags">
+    <div class="cf-tags-input__tags">
       <Tag
         v-for="(tag, index) in props.modelValue"
         :key="tag"
@@ -115,7 +115,7 @@ const removeTag = (index) => {
 </template>
 
 <style lang="scss">
-.cf-tags-field {
+.cf-tags-input {
   display: grid;
   height: fit-content;
 
@@ -132,7 +132,7 @@ const removeTag = (index) => {
     font-size: 0.75rem;
   }
 
-  &__input {
+  &__widget {
     margin: 0.25rem 0;
     min-height: 2.125rem;
     position: relative;
@@ -159,8 +159,19 @@ const removeTag = (index) => {
   }
 }
 
-[inert] .cf-tags-field,
-[disabled] .cf-tags-field {
+
+form {
+  .cf-tags-input {
+    label {
+      color: var(--cf-gray-3);
+      font-weight: 600;
+    }
+  }
+}
+
+
+[inert] .cf-tags-input,
+[disabled] .cf-tags-input {
   opacity: 0.5;
 }
 </style>
